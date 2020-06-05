@@ -9,6 +9,11 @@ public class Repository extends Branch {
     private ArrayList<Branch> branches = new ArrayList<>();
     // RepoName으로 생성
 
+    @Override
+    public String toString() {
+        return getClass().getName();
+    }
+
     // default 생성
     public Repository() {
         curBranchIndex = -1;

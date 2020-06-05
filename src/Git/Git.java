@@ -7,6 +7,11 @@ public class Git  extends Repository{
     public ArrayList<Repository> repos = new ArrayList<>(); // 여기서 생성하고, 사용
     public int curRepoIndex; // 현재 몇번쨰 repos[] 의 인덱스인지
 
+    @Override
+    public String toString() {
+        return getClass().getName();
+    }
+
     public Git() {
         curRepoIndex = -1;
     }
@@ -72,6 +77,24 @@ public class Git  extends Repository{
     public void commit(String commitMsg) {
         Branch branch = repos.get(curRepoIndex).getBranch();
         branch.setCommitLog(commitMsg);
+    }
+
+    // new fileName
+    public void setNewFile(String name) {
+        Branch branch = repos.get(curRepoIndex).getBranch();
+        branch.newFile(name);
+    }
+
+    // touch fileName
+    public void setTouchFile(String name){
+        Branch branch = repos.get(curRepoIndex).getBranch();
+        branch.editFileStatus(name);
+    }
+
+    // git status
+    public void getBranchStatus(){
+        Branch branch = repos.get(curRepoIndex).getBranch();
+        branch.getStatus();
     }
 
 

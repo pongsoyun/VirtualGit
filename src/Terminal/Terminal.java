@@ -4,6 +4,7 @@ import Git.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import static Terminal.Color.*;
 /*
 
@@ -71,28 +72,46 @@ public class Terminal extends Git {
                         prompt = "> ";
                     } else if (inputArr.length == 2) {
                         // cd Reponame -> remote/branch > 로 해야함
-                        if(checkoutRepo(inputArr[1]))
+                        if (checkoutRepo(inputArr[1]))
                             prompt = setGitPrompt(prompt);
                     }
                     break;
                 case "touch":
                     // > touch ${fileName} : 파일 수정했다고 해줘야함
                     // 현재repo.현재branch.fileName과 같은거 찾아서 modified로 상태 바꾸기(new Modified()); 로
-                    System.out.println("✨파일이 수정되었습니다");
+                    if (!prompt.equals("> ")) {
+                        if (inputArr.length == 2) {
+                            setTouchFile(inputArr[1]);
+                        } else {
+                            System.out.println("✨혹시 touch fileName을 쓰려고 하지않았나요? param이 2개라구요!");
+                        }
+                    }else {
+                        System.out.println("✨이런 명령어 없어. ( 사실 지금 못써 ) ");
+                    }
                     break;
                 case "new":
                     // new ${fileName}
-
-
+                    if (!prompt.equals("> ")) {
+                        // git 상태 아닌경우에는 못쓰는 명령어
+                        if (inputArr.length == 2)
+                            setNewFile(inputArr[1]);
+                        else
+                            System.out.println("✨혹시 new fileName을 쓰려고 하지않았나요? param이 2개라구요!");
+                    } else {
+                        System.out.println("✨이런 명령어 없어. ( 사실 지금 못써 ) ");
+                    }
+                    break;
                 case "git":
                     if (inputArr.length == 2) {
-                        // git branch
                         switch (inputArr[1]) {
                             case "branch":
                                 getBranchList();
                                 break;
                             case "log":
                                 getLog();
+                                break;
+                            case "status":
+                                getBranchStatus();
                                 break;
                             default:
                                 break;
@@ -115,12 +134,12 @@ public class Terminal extends Git {
                             case "commit":
                                 // git commit "${commitMsg}"
                                 // String.substring(3,6) :앞에서 4~6까지만 갖기
-                                if(inputArr[2].charAt(0)=='\"' &&  inputArr[2].charAt(inputArr[2].length()-1)=='\"') {
+                                if (inputArr[2].charAt(0) == '\"' && inputArr[2].charAt(inputArr[2].length() - 1) == '\"') {
                                     // 맨마지막 확인해야함 !! -1 되는ㄷ지 🔥
                                     String commitMsg;
                                     commitMsg = inputArr[2].substring(1, inputArr[2].length() - 1); // ""자르기
                                     commit(commitMsg);
-                                }else {
+                                } else {
                                     // 아무것도 안함. break;
                                     System.out.println("너 commit 하고싶은거냐? ");
                                 }

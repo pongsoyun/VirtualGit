@@ -1,41 +1,48 @@
 package Git;
+
 import java.util.ArrayList;
 
 import static Terminal.Color.*;
 
-public class Branch extends Commit{
+public class Branch extends Commit {
     private String name;
     ArrayList<Commit> commits = new ArrayList<Commit>();
+    FileMgr fileMgr = new FileMgr();
+
+    @Override
+    public String toString() {
+        return getClass().getName();
+    }
 
     public Branch() {
     }
 
-    public Branch(String name){
+    public Branch(String name) {
         setName(name);
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
 
     /*-- function --*/
     // git log
-    public void getCommitLog(){
-        for(Commit commit : commits){
+    public void getCommitLog() {
+        for (Commit commit : commits) {
             System.out.println(commit.getTime());
-            System.out.println(commit.getMsg()) ;
+            System.out.println(commit.getMsg());
             System.out.println();
         }
     }
 
 
     // git commit "msg"
-    public void setCommitLog(String commitMsg){
+    public void setCommitLog(String commitMsg) {
         int index = commits.size(); // index번째에 추가할거고
 
         // 커밋 새로 만들기
@@ -43,5 +50,40 @@ public class Branch extends Commit{
         commit.setCommit(commitMsg);
 
         commits.add(commit); // 방금 셋팅한 커밋 배열에 추가
+    }
+
+    // new fileName
+    public void newFile(String name) {
+        if (fileMgr.isExist(name)) {
+            // 만약에 중복되는 파일명이 있다고 하면 -> 새로 못만든다고 하기
+            System.out.println("✨new 실패! - 해당 파일명이 존재합니다. 다른 파일명을 입력하세요.");
+        } else {
+            // 만들기
+            fileMgr.setFile(name, "untracked"); // new = untracked
+        }
+
+
+        // setFile(new Untracked());
+    }
+
+    // touch fileName
+    // StagingNotChanged -> Modified
+    public void editFileStatus(String name) {
+        // 순회해서 해당하는애 수정하기
+        if(fileMgr.isExist(name)){
+            // 수정하기
+            File file = fileMgr.searchFile(name); // 바꾸려는 파일 찾아서 넣어주기
+            file = fileMgr.touchFile(file);
+        }else {
+            // 해당하는애가 없다면 수정못한다고 하기
+            System.out.println("✨touch 실패! - 해당 파일명이 존재하지 않습니다. 다른 파일명을 입력하세요.");
+        }
+
+    }
+
+    // git status
+    // getFiles() 에서 정렬해서 보여줘야할거같음
+    public void getStatus(){
+        fileMgr.getFiles();
     }
 }
