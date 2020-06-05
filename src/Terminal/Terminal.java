@@ -140,20 +140,13 @@ public class Terminal extends Git {
                                     commitMsg = inputArr[2].substring(1, inputArr[2].length() - 1); // ""자르기
                                     commit(commitMsg);
                                 } else {
-                                    // 아무것도 안함. break;
-                                    System.out.println("너 commit 하고싶은거냐? ");
+                                    System.out.println("너 commit 하고싶은거냐? 따옴표 제대로써 임마");
                                 }
                                 break;
                             default:
                                 break;
                         }
-
-
-                        //
-
                     }
-
-
                 default:
 //                    // 해당 명령이 없는 경우
 //                    System.out.println("✨command not found: " + input);

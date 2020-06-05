@@ -59,7 +59,7 @@ public class Branch extends Commit {
             System.out.println("✨new 실패! - 해당 파일명이 존재합니다. 다른 파일명을 입력하세요.");
         } else {
             // 만들기
-            fileMgr.setFile(name, "untracked"); // new = untracked
+            fileMgr.setFile(name); // new = untracked
         }
 
 
