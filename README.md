@@ -1,6 +1,6 @@
 # VirtualGit
 
--   [ ] pwd
+-   [x] pwd
 -   [ ] ls은 나중에..
 -   [x] exit
 -   [x] cd
@@ -13,11 +13,11 @@
 -   [ ] git branch
 -   [ ] git status
 
--   [ ] git clone \${repoName}
+-   [ ] git clone \${repoName} ???
 -   [x] git init \${repoName}
 -   [ ] git push \${repoName} -> remote/repoName.txt 생성하고 현재까지 커밋로그 저장
--   [ ] git checkout \${branchName}
--   [ ] git branch \${branchName} -> repoName/branchName > 으로 변경
+-   [ ] git checkout \${branchName} -> repoName/branchName > 으로 변경
+-   [x] git branch \${branchName}
 -   [ ] git add \${fileName}
 -   [ ] git commit \${commitMSG}
 

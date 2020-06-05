@@ -7,7 +7,7 @@ public class Git  extends Repository{
     public int curRepoIndex; // 현재 몇번쨰 repos[] 의 인덱스인지
 
     public Git() {
-
+        curRepoIndex = -1;
     }
 
     //////////////////////////////////////////////////////////////////////////////
@@ -18,6 +18,7 @@ public class Git  extends Repository{
     }
 
     public void init(String newRepoName){
+        curRepoIndex++;
         setNewRepo(newRepoName); // 해당 이름으로 레포 추가함
     }
 
@@ -36,12 +37,24 @@ public class Git  extends Repository{
         System.out.println("현재 init한 애는 " + curRepoIndex + " 에 있는 " + repos.get(curRepoIndex).getRepoName()); //아 repos[currentRepoIndex].getRepoName()이 이렇게 되나봐
     }
 
+    // git branch ${branchName}
+    public void newBranch(String branchName){
+        repos.get(curRepoIndex).setBranch(branchName);
+    }
+
+    // git checkout ${branchName}
+    public void checkout(String branchName){
+        repos.get(curRepoIndex).checkoutBranch(branchName);
+    }
+
 
     //////////////////////////////////////////////////////////////////////////////
     /*-- prompt 셋팅 --*/
     // Terminal의 prompt를 바꾸는 부분
     public String setGitPrompt(String prompt) {
-        return repos.get(curRepoIndex).getRepoName() + "/" + repos.get(curRepoIndex).curBranchName() + "> ";
+        System.out.println("=======>" + curRepoIndex);
+
+        return repos.get(curRepoIndex).getRepoName() + "/" + repos.get(curRepoIndex).getBranchName() + "> ";
     }
 
 }
