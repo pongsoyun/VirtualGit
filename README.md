@@ -35,6 +35,7 @@
 
 -   [ ] 현재 commitmessage 한단락아니면 안됨 수정
 -   [ ] @Override 라고 하나 써놓은거있는데 참고 -> swap()
+-   [ ] ㅎ.. .커밋 두개이상 하면 버그남
 
 # class `Repository`
 
@@ -65,5 +66,3 @@
     - gitInit(String repoName)
         : 해당 레포이름을 만든다
         > git init ${repoName}
-
-git status 부분 visualizing, :bugFix: staging 잘못되어있는거 처리

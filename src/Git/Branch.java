@@ -74,9 +74,10 @@ public class Branch extends Commit {
     }
 
     // touch fileName
+    // bug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 여기 생성자로 바꿀게아니라, status를 바꿔줘야함
     public void editFileStatus(String name) {
         // 순회해서 해당하는애 수정하기
-        if (fileMgr.isExist(name)) {
+        if (fileMgr.isExist(name) ) {
             // StagingNotChanged -> Modified
             File file = fileMgr.searchFile(name); // 바꾸려는 파일 찾아서 넣어주기
             File newFile = fileMgr.touchFile(file);
@@ -94,8 +95,9 @@ public class Branch extends Commit {
 //        Your branch is ahead of 'origin/master' by 6 commits.
 //        (use "git push" to publish your local commits)
 //
-        if(fileMgr.isSnapshotsExist()){
-            // add도 없고, touch도없고, commit도 없을경우
+        if(!fileMgr.isSnapshotsExist()){
+            // add도 없고, touch도없고, commit도 없을경우 (commitCnt랑은 노상관)
+            // 근데 지금은 커밋하고나서 🔥
             // snapshot이 없으면 더이상 커밋할게 없다는 뜻
             System.out.println("On branch "+getName());
             System.out.println("Your branch is ahead of 'origin/" + getName() + "' by " + commitCnt + " commits.");
@@ -129,6 +131,8 @@ public class Branch extends Commit {
 
     // git push
     public void setPush() {
-        fileMgr.getClean();
+        // push : snapshotsBefore.setLength(0);
+        // commit : snapshotsBefore = snapshot;
+
     }
 }
