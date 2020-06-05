@@ -9,17 +9,17 @@
 -   [ ] new \${fileName}
 
 -   [ ] git push
--   [ ] git log
+-   [x] git log
 -   [x] git branch
 -   [ ] git status
 
 -   [ ] git clone \${repoName} ???
 -   [x] git init \${repoName}
 -   [ ] git push \${repoName} -> remote/repoName.txt 생성하고 현재까지 커밋로그 저장
--   [ ] git checkout \${branchName} -> repoName/branchName > 으로 변경
+-   [x] git checkout \${branchName} -> repoName/branchName > 으로 변경
 -   [x] git branch \${branchName}
 -   [ ] git add \${fileName}
--   [ ] git commit \${commitMSG}
+-   [x] git commit \${commitMSG}
 
 //// 혹시나 마지막에 띄어쓰기 나올경우 판단하는지 에러 핸들링 나중에 하기
 

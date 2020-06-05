@@ -71,10 +71,9 @@ public class Terminal extends Git {
                         prompt = "> ";
                     } else if (inputArr.length == 2) {
                         // cd Reponame -> remote/branch > 로 해야함
-                        checkoutRepo(inputArr[1]);
-                        prompt = setGitPrompt(prompt);
+                        if(checkoutRepo(inputArr[1]))
+                            prompt = setGitPrompt(prompt);
                     }
-                    System.out.println("input : " + input);
                     break;
                 case "touch":
                     // > touch ${fileName} : 파일 수정했다고 해줘야함
@@ -123,6 +122,7 @@ public class Terminal extends Git {
                                     commit(commitMsg);
                                 }else {
                                     // 아무것도 안함. break;
+                                    System.out.println("너 commit 하고싶은거냐? ");
                                 }
                                 break;
                             default:

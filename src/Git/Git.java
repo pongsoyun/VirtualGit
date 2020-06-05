@@ -25,17 +25,26 @@ public class Git  extends Repository{
 
     // 현재 레포이름과 같은애 찾아서 currentRepoIndex 바꿔주기
     // return : 현재 몇번째로 할지 리턴하기
-    public void checkoutRepo(String repoName) {
+    public boolean checkoutRepo(String repoName) {
+        // true : 잘됐어요!
+        // false : 안됐어요
         int i =0;
+        boolean isExist = false;
         for (Repository repo : repos) {
             if (repo.getRepoName().equals(repoName)) {
                 // 현재 init 한 애는 얘다
                 curRepoIndex = i;
+                isExist = true;
                 break;
             }
             i++;
         }
-        System.out.println("현재 init한 애는 " + curRepoIndex + " 에 있는 " + repos.get(curRepoIndex).getRepoName()); //아 repos[currentRepoIndex].getRepoName()이 이렇게 되나봐
+        if(isExist)
+            System.out.println("현재 init한 애는 " + curRepoIndex + " 에 있는 " + repos.get(curRepoIndex).getRepoName()); //아 repos[currentRepoIndex].getRepoName()이 이렇게 되나봐
+        else
+            System.out.println("이런 레포 없어요.. ");
+
+        return isExist;
     }
 
     // git branch ${branchName}
