@@ -4,7 +4,7 @@
 -   [ ] ls은 나중에..
 -   [x] exit
 -   [x] cd
--   [ ] cd \${repoName} -> remote/branch > 로 해야함
+-   [x] cd \${repoName} -> remote/branch > 로 해야함
 -   [ ] touch \${fileName}
 -   [ ] new \${fileName}
 
@@ -14,7 +14,7 @@
 -   [ ] git status
 
 -   [ ] git clone \${repoName}
--   [ ] git init \${repoName}
+-   [x] git init \${repoName}
 -   [ ] git push \${repoName} -> remote/repoName.txt 생성하고 현재까지 커밋로그 저장
 -   [ ] git checkout \${branchName}
 -   [ ] git branch \${branchName} -> repoName/branchName > 으로 변경

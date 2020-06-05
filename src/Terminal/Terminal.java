@@ -1,6 +1,6 @@
 package Terminal;
 
-import Git.Repository;
+import Git.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,14 +13,13 @@ import java.util.Scanner;
  */
 
 
-public class Terminal extends Repository {
+public class Terminal extends Git {
     public static Scanner scanner = new Scanner(System.in);
-    public String input;
-    public String[] inputArr;
-    public boolean isExit;
-    public String prompt; // prompt 종류 뭐로할건지. git 일지 그냥 terminal일지
-    public ArrayList<Repository> repos = new ArrayList<>();
-    public int curRepoIndex; // 현재 몇번쨰 repos[] 의 인덱스인지
+    public String input; // User input
+    public String[] inputArr; // User input tokenizer
+    public boolean isExit; // exit(1)
+    public String prompt; // prompt 종류 뭐로할건지. git 일지 그냥 terminal일지 -> 여기서 관리해야함
+//    super것 사용 : Repos, curRepoIndex
 
     // 삽입 - repos.add(Repository형 객체);
     // 순회 - for each 사용
@@ -34,28 +33,6 @@ public class Terminal extends Repository {
         isExit = false;
         prompt = "> ";
         curRepoIndex = 0;
-    }
-
-    public void setNewRepo(String repoName) {
-        Repository newRepo = new Repository(repoName); // repoName을 가진 새로운 레포 생성
-        repos.add(newRepo);
-    }
-
-    public void checkoutRepo(String repoName) {
-        // 현재 레포이름과 같은애 찾아서 currentRepoIndex 바꿔주기
-        int i = 0;
-        for (Repository repo : repos) {
-            if (repo.getRepoName() == repoName) {
-                // 현재 init 한 애는 얘다
-                curRepoIndex = i;
-            }
-            i++;
-        }
-        System.out.println("현재 init한 애는 " + curRepoIndex + " 에 있는 " + repos.get(curRepoIndex).getRepoName()); //아 repos[currentRepoIndex].getRepoName()이 이렇게 되나봐
-    }
-
-    public void setGitPrompt() {
-        prompt = repos.get(curRepoIndex).getRepoName() + "/" + repos.get(curRepoIndex).curBranchName() + "> ";
     }
 
     public void run() {
@@ -94,7 +71,7 @@ public class Terminal extends Repository {
                     } else if (inputArr.length == 2) {
                         // cd Reponame -> remote/branch > 로 해야함
                         checkoutRepo(inputArr[1]);
-                        setGitPrompt();
+                        prompt = setGitPrompt(prompt);
                     }
                     System.out.println("input : " + input);
                     break;
@@ -110,9 +87,9 @@ public class Terminal extends Repository {
                     } else if (inputArr.length == 3) {
                         // git init ${repoName}
                         if (inputArr[1].equals("init")) {
-                            String newRepoName = inputArr[2];
-                            setNewRepo(newRepoName); // 해당 이름으로 레포 추가함
+                            init(inputArr[2]);
                         }
+
 
                     }
 
