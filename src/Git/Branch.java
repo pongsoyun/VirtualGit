@@ -50,6 +50,11 @@ public class Branch extends Commit {
         commit.setCommit(commitMsg);
 
         commits.add(commit); // 방금 셋팅한 커밋 배열에 추가
+
+        // 커밋 후 modified -> staging not CHanged로 바꾸기
+        // 1. 모든 Modified 찾기
+        // 2. StagingNotChanged 로 변경
+        fileMgr.commitFile();
     }
 
     // new fileName
@@ -67,15 +72,14 @@ public class Branch extends Commit {
     }
 
     // touch fileName
-    // StagingNotChanged -> Modified
     public void editFileStatus(String name) {
         // 순회해서 해당하는애 수정하기
         if(fileMgr.isExist(name)){
-            // 수정하기
+            // StagingNotChanged -> Modified
             File file = fileMgr.searchFile(name); // 바꾸려는 파일 찾아서 넣어주기
-            file = fileMgr.touchFile(file);
+            File newFile = fileMgr.touchFile(file);
+            fileMgr.swapFile(file, newFile); // 나중에 @Override
         }else {
-            // 해당하는애가 없다면 수정못한다고 하기
             System.out.println("✨touch 실패! - 해당 파일명이 존재하지 않습니다. 다른 파일명을 입력하세요.");
         }
 
@@ -85,5 +89,22 @@ public class Branch extends Commit {
     // getFiles() 에서 정렬해서 보여줘야할거같음
     public void getStatus(){
         fileMgr.getFiles();
+    }
+
+    // git add fileName
+    public void setAdd(String name){
+        if(fileMgr.isExist(name)){
+            // Untracked -> StagingNotChanged
+            File file = fileMgr.searchFile(name);
+            File newFile = fileMgr.addFile(file);
+            fileMgr.swapFile(file, newFile);
+        }else {
+            System.out.println("✨add 실패! - 해당 파일명이 존재하지 않습니다. 다른 파일명을 입력하세요.");
+        }
+    }
+
+    // git add .
+    public void setAddAll(){
+        // Untracked 모두 찾아서 setAdd 해줘야함
     }
 }

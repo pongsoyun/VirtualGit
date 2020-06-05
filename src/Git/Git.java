@@ -97,6 +97,17 @@ public class Git  extends Repository{
         branch.getStatus();
     }
 
+    // git add fileName
+    public void gitAdd(String name){
+        Branch branch = repos.get(curRepoIndex).getBranch();
+        if(name.equals('.')){
+            // setAddAll()나중에 -> git add .
+        }else{
+            branch.setAdd(name);
+        }
+
+    }
+
 
     //////////////////////////////////////////////////////////////////////////////
     /*-- prompt 셋팅 --*/

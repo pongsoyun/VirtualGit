@@ -143,6 +143,10 @@ public class Terminal extends Git {
                                     System.out.println("너 commit 하고싶은거냐? 따옴표 제대로써 임마");
                                 }
                                 break;
+                            case "add":
+                                // git add fileName
+                                gitAdd(inputArr[2]);
+                                break;
                             default:
                                 break;
                         }

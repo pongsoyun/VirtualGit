@@ -15,6 +15,7 @@ class FileMgr {
     public void setFile(String name) {
         // new = untracked
         File file = new Untracked();
+        file.setFile(name);
         files.add(file);
         System.out.println("✨" + file.getFileName() + " 이 생성되었습니다! " + file.getClass() + " toString은 : " + file.toString());
     }
@@ -47,29 +48,63 @@ class FileMgr {
         }
     }
 
-    // 여기서 안되는 경우는 있을수없음 -> System 오류!
     // touch fileName
+    // StagingNotChanged -> Modified
     public File touchFile(File file) {
         File touchedFile;
-        if (file instanceof StagingNotChanged) { // StagingNotChanged만 -> Modified로 수정
+        if (file instanceof StagingNotChanged) {
             touchedFile = new Modified();
             touchedFile.setFile(file.getFileName());
-            //            touchedFile = null;//touchedFile ref 날리기
+
             System.out.println("✨파일이 수정되었습니다");
         }  else if(file instanceof Untracked){
-            System.out.println("modified긴 해 !! ");
+            System.out.println("untracked 야!! add하고, 수정해줘");
             touchedFile = file;
         }
         else {
             // StagingChanged, Untracked는 원래 상태 그대로 :)
-            System.out.println("✨파일 수정 못했어요.. 뭔가 이상했나봐요.. >>" + file.getClass() + "<<이라는데요?얘는toString>>"+file.toString());
+            System.out.println("✨파일 수정 못했어요.. 뭔가 이상했나봐요.. >>" + file.getClass() + "<<이라는데요?");
             touchedFile = file; // 그냥 고대로 보내기
         }
 
         return touchedFile;
     }
 
+    // git add fileName
+    // Untracked -> StagingNotChanged
+    public File addFile(File file){
+        File stagingFile;
+        if(file instanceof Untracked){
+            stagingFile = new StagingNotChanged();
+            stagingFile.setFile(file.getFileName());
+            file = stagingFile;
+            System.out.println("✨"+stagingFile.getFileName()+" 이 Staging 되었습니다");
+        }else {
+            System.out.println("✨더이상 Add 할 파일이 없어요");
+        }
+        return file;
+    }
 
+    // add 하고나서 변경하는 코드. untracked <-> stagingNotChanged로
+    public void swapFile(File file, File newFile){
+
+        files.remove(file);
+        files.add(newFile);
+//        return file; // 원래 File이었는데 안써서 걍 다시바꿈
+    }
+
+    // git commit 하고나서 들어오는것
+    // Modified -> StagingnotChanged
+    public void commitFile(){
+        File stagingFile;
+        for(File file : files){
+            if(file instanceof Modified){
+                stagingFile = new StagingNotChanged();
+                stagingFile.setFile(file.getFileName());
+                swapFile(file, stagingFile);
+            }
+        }
+    }
 }
 
 public interface File {
