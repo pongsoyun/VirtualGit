@@ -83,10 +83,13 @@ public class Terminal extends Git {
 
                 case "git":
                     if (inputArr.length == 2) {
-                        prompt = "git > "; // 여기 원래 레포이름/브랜치 넣어야함 // 그럼 함수에서 호출해야할거같은데 ?
                         // git branch
+                        switch (inputArr[1]) {
+                            case "branch":
+                                getBranchList();
+                        }
                     } else if (inputArr.length == 3) {
-                        switch(inputArr[1]){
+                        switch (inputArr[1]) {
                             case "init":
                                 // git init ${repoName}
                                 init(inputArr[2]);
@@ -108,7 +111,6 @@ public class Terminal extends Git {
                         //
 
                     }
-
 
 
                 default:

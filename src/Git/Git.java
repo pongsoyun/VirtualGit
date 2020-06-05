@@ -47,6 +47,11 @@ public class Git  extends Repository{
         repos.get(curRepoIndex).checkoutBranch(branchName);
     }
 
+    // git branch
+    public void getBranchList(){
+        repos.get(curRepoIndex).getBranches();
+    }
+
 
     //////////////////////////////////////////////////////////////////////////////
     /*-- prompt 셋팅 --*/
