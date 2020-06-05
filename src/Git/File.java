@@ -2,12 +2,23 @@ package Git;
 
 import java.util.ArrayList;
 
+import static Terminal.Color.*;
+
 class FileMgr {
     ArrayList<File> files = new ArrayList<File>();
+    StringBuffer snapshotsBefore = new StringBuffer();
+    StringBuffer snapshots = new StringBuffer();
 
     @Override
     public String toString() {
         return toString();
+    }
+
+    public boolean isSnapshotsExist() {
+        if(snapshots.length()==0)
+            return false;
+        else
+            return true;
     }
 
 
@@ -39,21 +50,83 @@ class FileMgr {
         return null;
     }
 
+    public void getClean() {
+        snapshotsBefore = snapshots;
+        snapshots.setLength(0); // 초기화
+    }
+
     // 모든 파일 알려주기
     public void getFiles() {
-        for (File file : files) {
-            System.out.println("file 명 : " + file.getFileName());
-            System.out.println("file 상태 : " + file.toString());
-            System.out.println();
-        }
+        getAllStagingNotChanged();
+        getAllOnlyStaging();
+        getAllUntracked();
     }
+
+
+    public boolean getAllStagingNotChanged() {
+        boolean isExist = false;
+        StringBuffer str = new StringBuffer();
+        str.append("Changes to be committed:\n\n\n");
+//        for(File file : files){
+//            if(file instanceof StagingNotChanged){
+//                isExist = true;
+//                str.append(ANSI_GREEN + "\t\t\tnew file:\t"+file.getFileName()+""+ANSI_RESET);
+//            }
+//        }
+        // snapshotBefore가 있기라도 하면 -> snapshotsBefore = null 로 날릴때 : push 할때
+        if(snapshotsBefore.length()==0)
+            isExist = true;
+        if(isExist){
+            System.out.println(str);
+            System.out.print(snapshotsBefore);
+        }
+        return isExist;
+    }
+
+    public boolean getAllOnlyStaging(){
+        boolean isExist=false;
+        snapshots.setLength(0);// 푸쉬하기직전까지 업데이트 하다가, 푸쉬하고 Before로 보낸다
+        StringBuffer str = new StringBuffer();
+        str.append("Changes not staged for commit:\n\n");
+        str.append("\t(use \"git add <file>...\" to update what will be committed)\n");
+        str.append("\t(use \"git checkout -- <file>...\" to discard changes in working directory)\n\n");
+        for(File file : files){
+            if(file instanceof OnlyStaging){
+                isExist = true;
+                snapshots.append(ANSI_RED + "\t\t\tmodified:\t"+file.getFileName()+"\n"+ANSI_RESET);
+                str.append(ANSI_RED + "\t\t\tmodified:\t"+file.getFileName()+"\n"+ANSI_RESET);
+            }
+        }
+        if(isExist)
+            System.out.print(str);
+
+        return isExist;
+    }
+
+    public boolean getAllUntracked() {
+        boolean isExist = false;
+        StringBuffer str = new StringBuffer();
+        str.append("Untracked files:\n\n");
+        str.append("\t(use \"git add <file>...\" to include in what will be committed)\n\n");
+        for(File file : files){
+            if(file instanceof Untracked){
+                isExist = true;
+                str.append(ANSI_RED + "\t\t\t"+file.getFileName()+"\n"+ANSI_RESET);
+            }
+        }
+        if(isExist)
+            System.out.print(str);
+
+        return isExist;
+    }
+
 
     // touch fileName
     // StagingNotChanged -> Modified
     public File touchFile(File file) {
         File touchedFile;
         if (file instanceof StagingNotChanged) {
-            touchedFile = new Modified();
+            touchedFile = new OnlyStaging();
             touchedFile.setFile(file.getFileName());
 
             System.out.println("✨파일이 수정되었습니다");
@@ -71,11 +144,11 @@ class FileMgr {
     }
 
     // git add fileName
-    // Untracked -> StagingNotChanged
+    // Untracked -> OnlyStaging
     public File addFile(File file){
         File stagingFile;
         if(file instanceof Untracked){
-            stagingFile = new StagingNotChanged();
+            stagingFile = new OnlyStaging();
             stagingFile.setFile(file.getFileName());
             file = stagingFile;
             System.out.println("✨"+stagingFile.getFileName()+" 이 Staging 되었습니다");
@@ -85,7 +158,7 @@ class FileMgr {
         return file;
     }
 
-    // add 하고나서 변경하는 코드. untracked <-> stagingNotChanged로
+    // add 하고나서 변경하는 코드. untracked <-> OnlyStaging로
     public void swapFile(File file, File newFile){
 
         files.remove(file);
@@ -98,7 +171,7 @@ class FileMgr {
     public void commitFile(){
         File stagingFile;
         for(File file : files){
-            if(file instanceof Modified){
+            if(file instanceof OnlyStaging){
                 stagingFile = new StagingNotChanged();
                 stagingFile.setFile(file.getFileName());
                 swapFile(file, stagingFile);
@@ -132,11 +205,10 @@ class StagingNotChanged implements File {
     }
 }
 
-class Modified implements File {
-    private String status;
+class OnlyStaging implements File {
     private String name;
 
-    public Modified() {
+    public OnlyStaging() {
 
     }
 
@@ -152,7 +224,6 @@ class Modified implements File {
 }
 
 class Untracked implements File {
-    private String status;
     private String name;
 
     public Untracked() {

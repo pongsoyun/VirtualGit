@@ -134,6 +134,7 @@ public class Terminal extends Git {
                             case "commit":
                                 // git commit "${commitMsg}"
                                 // String.substring(3,6) :앞에서 4~6까지만 갖기
+                                // 끝까지 순회하면서 없을때까지 String에 더해서
                                 if (inputArr[2].charAt(0) == '\"' && inputArr[2].charAt(inputArr[2].length() - 1) == '\"') {
                                     // 맨마지막 확인해야함 !! -1 되는ㄷ지 🔥
                                     String commitMsg;

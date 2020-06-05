@@ -5,23 +5,36 @@
 -   [x] exit
 -   [x] cd
 -   [x] cd \${repoName} -> remote/branch > 로 해야함
--   [ ] touch \${fileName}
--   [ ] new \${fileName}
-
+-   [x] touch \${fileName}
+-   [x] new \${fileName}
 -   [ ] git push
 -   [x] git log
 -   [x] git branch
--   [ ] git status
+-   [x] git status -> 스냅샷 👀예쁘게 다듬어야함. Class 순서대로 안보여짐 아직
 
--   [ ] git clone \${repoName} ???
+-   [ ] git clone \${repoName} -> repoName 폴더만들기로?
 -   [x] git init \${repoName}
--   [ ] git push \${repoName} -> remote/repoName.txt 생성하고 현재까지 커밋로그 저장
--   [x] git checkout \${branchName} -> repoName/branchName > 으로 변경
+-   [ ] git push \${repoName} -> remote/branch.txt 생성하고 현재까지 커밋로그 저장
+-   [x] git checkout \${branchName} -> repoName/branchName >
 -   [x] git branch \${branchName}
--   [ ] git add \${fileName}
+-   [x] git add \${fileName}
+-   [ ] git add .
 -   [x] git commit \${commitMSG}
 
-//// 혹시나 마지막에 띄어쓰기 나올경우 판단하는지 에러 핸들링 나중에 하기
+## CLI UI + Test Code 필요
+
+-   [ ] color 함수로 감싸기
+-   [ ] cli color 적용
+-   [ ] cli 문구 수정
+-   [ ] git status 스냅샷 예쁘게 다듬기
+-   [ ] cli 에러핸들링 - 혹시나 마지막에 띄어쓰기 나올경우 판단하는지 에러 핸들링 나중에 하기
+-   [ ] cli 다른문자입력시 안한거없는지 확인
+-   [ ] Terminal , Git Package 별 터미널 다시한번 확인
+
+## BUG
+
+-   [ ] 현재 commitmessage 한단락아니면 안됨 수정
+-   [ ] @Override 라고 하나 써놓은거있는데 참고 -> swap()
 
 # class `Repository`
 
@@ -52,3 +65,5 @@
     - gitInit(String repoName)
         : 해당 레포이름을 만든다
         > git init ${repoName}
+
+git status 부분 visualizing, :bugFix: staging 잘못되어있는거 처리
