@@ -1,6 +1,7 @@
 package Git;
 
 import java.util.ArrayList;
+import static Terminal.Color.*;
 
 public class Git  extends Repository{
     public ArrayList<Repository> repos = new ArrayList<>(); // 여기서 생성하고, 사용
@@ -52,13 +53,23 @@ public class Git  extends Repository{
         repos.get(curRepoIndex).getBranches();
     }
 
+    // git log
+    public void getLog() {
+        Branch branch = repos.get(curRepoIndex).getBranch();
+        branch.getCommitLog();
+    }
+
+    // git commit "msg"
+    public void commit(String commitMsg) {
+        Branch branch = repos.get(curRepoIndex).getBranch();
+        branch.setCommitLog(commitMsg);
+    }
+
 
     //////////////////////////////////////////////////////////////////////////////
     /*-- prompt 셋팅 --*/
     // Terminal의 prompt를 바꾸는 부분
     public String setGitPrompt(String prompt) {
-        System.out.println("=======>" + curRepoIndex);
-
         return repos.get(curRepoIndex).getRepoName() + "/" + repos.get(curRepoIndex).getBranchName() + "> ";
     }
 

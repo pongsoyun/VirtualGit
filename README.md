@@ -10,7 +10,7 @@
 
 -   [ ] git push
 -   [ ] git log
--   [ ] git branch
+-   [x] git branch
 -   [ ] git status
 
 -   [ ] git clone \${repoName} ???

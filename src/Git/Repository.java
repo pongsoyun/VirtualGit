@@ -1,20 +1,9 @@
 package Git;
 
 import java.util.ArrayList;
+import static Terminal.Color.*;
 
-public class Repository {
-
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-
-
+public class Repository extends Branch {
     private String repoName;
     private int curBranchIndex;
     private ArrayList<Branch> branches = new ArrayList<>();
@@ -58,6 +47,10 @@ public class Repository {
                 System.out.println(branch.getName());
             }
         }
+    }
+
+    public Branch getBranch() {
+        return branches.get(curBranchIndex);
     }
 
     // 현재 브랜치 이름 리턴

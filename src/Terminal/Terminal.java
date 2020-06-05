@@ -4,6 +4,7 @@ import Git.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import static Terminal.Color.*;
 /*
 
  - Terminal 의 기본 메서드를 가지고 있음
@@ -80,6 +81,9 @@ public class Terminal extends Git {
                     // 현재repo.현재branch.fileName과 같은거 찾아서 modified로 상태 바꾸기(new Modified()); 로
                     System.out.println("✨파일이 수정되었습니다");
                     break;
+                case "new":
+                    // new ${fileName}
+
 
                 case "git":
                     if (inputArr.length == 2) {
@@ -87,6 +91,12 @@ public class Terminal extends Git {
                         switch (inputArr[1]) {
                             case "branch":
                                 getBranchList();
+                                break;
+                            case "log":
+                                getLog();
+                                break;
+                            default:
+                                break;
                         }
                     } else if (inputArr.length == 3) {
                         switch (inputArr[1]) {
@@ -102,6 +112,18 @@ public class Terminal extends Git {
                                 // git checkout ${branchName}
                                 checkout(inputArr[2]);
                                 prompt = setGitPrompt(prompt);
+                                break;
+                            case "commit":
+                                // git commit "${commitMsg}"
+                                // String.substring(3,6) :앞에서 4~6까지만 갖기
+                                if(inputArr[2].charAt(0)=='\"' &&  inputArr[2].charAt(inputArr[2].length()-1)=='\"') {
+                                    // 맨마지막 확인해야함 !! -1 되는ㄷ지 🔥
+                                    String commitMsg;
+                                    commitMsg = inputArr[2].substring(1, inputArr[2].length() - 1); // ""자르기
+                                    commit(commitMsg);
+                                }else {
+                                    // 아무것도 안함. break;
+                                }
                                 break;
                             default:
                                 break;
