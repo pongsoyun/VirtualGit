@@ -50,6 +50,7 @@ public class Branch extends Commit {
         if(fileMgr.getSnapShot().length()!=0){
             // 커밋 새로 만들기
             Commit commit = new Commit();
+            fileMgr.updateStagingNotChanged();
             fileMgr.updateOnlyStaging();
             fileMgr.updateUntracked();
 
@@ -62,7 +63,9 @@ public class Branch extends Commit {
         }else {
             System.out.println("nothing to commit, working tree clean! "); // 할 커밋이 없어요
         }
+        fileMgr.updateStagingNotChanged();
         fileMgr.updateOnlyStaging();
+        fileMgr.updateUntracked();
     }
 
     // new fileName
@@ -81,6 +84,9 @@ public class Branch extends Commit {
             File file = fileMgr.searchFile(name); // 바꾸려는 파일 찾아서 넣어주기 : StagingNotChanged -> Modified
             File newFile = fileMgr.touchFile(file);
             fileMgr.swapFile(file, newFile);
+            fileMgr.updateStagingNotChanged();
+            fileMgr.updateOnlyStaging();
+            fileMgr.updateUntracked();
         } else {
             System.out.println(ANSI_RED+"✨touch Failed!"+ANSI_RESET+ " - The file name does not exist. Please enter a valid file name."); // 그런파일없슴니다ㅠ
         }

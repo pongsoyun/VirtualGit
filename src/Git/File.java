@@ -106,12 +106,11 @@ class FileMgr {
                     if (snapshotsBefore.toString().contains(file.getFileName())) {
                         isChanged = true;
                         file.setStatus(Status.MODIFIED);
-                        str.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                        str.append(ANSI_RED+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
                     }
                 } else if ((file instanceof StagingNotChanged)) {
                     // 해당 파일이 지금 변경되지 않았는데, 아까 푸쉬했을 경우
-                    str.append(ANSI_"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n");
-
+                    str.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
                 }
             }
             if (isChanged) {
@@ -119,13 +118,12 @@ class FileMgr {
                 System.out.println(str);
                 snapshotsBefore = str;
             } else {
+//                System.out.println("Changes to be committed:\n\n");
                 System.out.println(snapshotsBefore);
             }
         } else {
-            // cleaned 뭐 뽑아야되는거아님?
             System.out.println("바뀐거없다");
         }
-
     }
 
     public void getAllOnlyStaging() {
@@ -140,14 +138,14 @@ class FileMgr {
             if (file instanceof StagingNotChanged) {
                 if (file.getStatus().equals(Status.MODIFIED)) {
                     isExist = true;
-                    snapshots.append("\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n");
-                    str.append("\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n");
+                    snapshots.append(ANSI_RED+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                    str.append(ANSI_RED+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
                 }
             }
             if (file instanceof OnlyStaging) {
                 isExist = true;
-                snapshots.append("\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n");
-                str.append("\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n");
+                snapshots.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                str.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
             }
         }
         if (isExist)
