@@ -72,6 +72,8 @@ class FileMgr {
     }
 
 
+    // 🐛발견 !!
+    // 현재 그냥 StringBuffer 로 넣기만 해서, new file: abc (push)-> modified: abc (commit)  내역이 그대로 저장됨
     public void getAllStagingNotChanged() {
         boolean isExist = false;
         StringBuffer str = new StringBuffer();
@@ -183,13 +185,17 @@ class FileMgr {
     // git commit 하고나서 들어오는것
     // Modified -> StagingnotChanged
     public void commitFile(){
+        System.out.println("commitFile 진입은 잘 됐음. files.size : " + files.size());
         if(files.size() !=0 ){
-            for(File file : files){
-                System.out.println(file.getFileName());
-                if(file instanceof OnlyStaging){
+            for(int j=0;j<files.size();j++){
+                System.out.println(files.size()+" << 사이즈 바뀌었을까?" + files.get(j).getFileName() +"하는중 -> ");
+                // 현재 문제점 : swap에서 삭제 -> 삽입을 하니까 이런 문제가 생기는거임
+                if(files.get(j) instanceof OnlyStaging){
+                    System.out.println(files.get(j)+" 이 OnlyStaging이라나봐요!");
                     File stagingFile = new StagingNotChanged();
-                    stagingFile.setFile(file.getFileName());
-                    swapFile(file, stagingFile);
+                    stagingFile.setFile(files.get(j).getFileName());
+                    swapFile(files.get(j), stagingFile);
+                    j--; // 그럼 현재것을 가리키라고 한번 해보자
                 }
             }
             getClean();
