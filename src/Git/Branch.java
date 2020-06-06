@@ -35,16 +35,14 @@ public class Branch extends Commit {
     // git log
     public String getCommitLog() {
         StringBuffer str = new StringBuffer();
-        System.out.println("commit 길이는? "+commits.size());
+        if(commits.size() == 0){
+            // 커밋 없다
+        }
         for (Commit commit : commits) {
             str.append(commit.getTime()+"\n");
             str.append(commit.getMsg()+"\n");
             str.append(commit.getFileLog()+"\n");
             str.append("\n");
-//            System.out.println(commit.getTime());
-//            System.out.println(commit.getMsg());
-//            System.out.println(commit.getFileLog());
-//            System.out.println();
         }
 
         return str.toString();

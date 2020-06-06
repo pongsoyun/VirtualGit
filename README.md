@@ -13,7 +13,7 @@
 -   [x] git remote -> @Overriding toString();
 
 -   [x] git init \${repoName}
--   [x] git push \${repoName} -> 폴더, remote/branch.txt 생성하고 현재까지 커밋로그 저장
+-   [x] git push \${repoName} -> 폴더, remote/branch.txt 생성하고 현재까지 커밋로그 저장. 현재 있는 브랜치의 것을 푸쉬함
 -   [x] git checkout \${branchName} -> repoName/branchName >
 -   [x] git branch \${branchName}
 -   [x] git add \${fileName}
@@ -29,6 +29,7 @@
 -   [ ] cli 에러핸들링 - 혹시나 마지막에 띄어쓰기 나올경우 판단하는지 에러 핸들링 나중에 하기
 -   [ ] cli 다른문자입력시 안한거없는지 확인
 -   [ ] Terminal , Git Package 별 터미널 다시한번 확인
+-   [ ] git help? 시간남으면 이거 다 정리해서 두면 깔끔!
 
 ## BUG
 
