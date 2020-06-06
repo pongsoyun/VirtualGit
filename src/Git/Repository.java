@@ -64,14 +64,20 @@ public class Repository extends Branch {
     // 현재 브랜치와 같은거 리턴
     public void checkoutBranch(String branchName) {
         int i = 0;
+        boolean isExist = false; // true: 성공, false: 실패
         for (Branch branch : branches) {
             if (branch.getName().equals(branchName)) {
                 // 현재 init 한 애는 얘다
                 curBranchIndex = i;
+                isExist =true;
                 break;
             }
             i++;
         }
+        if(isExist)
+            System.out.println("✨Success Checkout "+ANSI_CYAN + branches.get(curBranchIndex).getName()+ANSI_RESET+"!");
+        else
+            System.out.println(ANSI_RED+branchName + " branch does not exist."+ANSI_RESET);
     }
 
 }

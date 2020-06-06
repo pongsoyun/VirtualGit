@@ -145,6 +145,17 @@ public class Terminal extends Git {
                         // git이 아니면 사용불가
                     }
                     switch (inputArr[1]) {
+                        case "help":
+                            // git help
+                            isExist = true;
+                            if(inputArr.length == 2){
+                                gitHelp();
+                            }else {
+                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git help'.\n\n" +
+                                        "The most similar command is\n\t\t" + ANSI_YELLOW +
+                                        "git help" + ANSI_RESET);
+                            }
+                            break;
                         case "branch":
                             // git branch ${branchName}
                             isExist = true;

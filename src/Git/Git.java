@@ -135,4 +135,11 @@ public class Git  extends Repository{
         return repos.get(curRepoIndex).getRepoName() + "/" + repos.get(curRepoIndex).getBranchName() + "> ";
     }
 
+
+    // git help
+    public void gitHelp() {
+        System.out.println(
+
+        );
+    }
 }
