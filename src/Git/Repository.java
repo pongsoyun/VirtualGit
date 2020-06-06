@@ -26,7 +26,7 @@ public class Repository extends Branch {
 
     private void setRepoName(String repoName) {
         this.repoName = repoName;
-        System.out.println("✨" + this.repoName + " 레포가 생성되었습니다!");
+        System.out.println(ANSI_CYAN+"✨" + this.repoName+ANSI_RESET + " Repository has been created!!");
     }
 
     public String getRepoName() {
@@ -36,8 +36,7 @@ public class Repository extends Branch {
     // branch ${branchName} 했을떄 호출되는 함수
     public void setBranch(String branchName) {
         branches.add(new Branch(branchName));
-        System.out.println("✨" + branchName + " branch가 생성되었습니다!");
-        System.out.println("--------branch size : " + branches.size());
+        System.out.println(ANSI_CYAN+"✨" + branchName +ANSI_RESET+ " branch가 생성되었습니다!");
     }
 
     public void getBranches() {
@@ -59,7 +58,6 @@ public class Repository extends Branch {
 
     // 현재 브랜치 이름 리턴
     public String getBranchName() {
-        System.out.println("branch index : " + curBranchIndex);
         return branches.get(curBranchIndex).getName();
     }
 
@@ -74,7 +72,6 @@ public class Repository extends Branch {
             }
             i++;
         }
-        System.out.println("현재 init한 애는 " + curBranchIndex + " 에 있는 " + branches.get(curBranchIndex).getName());
     }
 
 }

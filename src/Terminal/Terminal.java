@@ -44,12 +44,11 @@ public class Terminal extends Git {
             System.out.print(prompt);
             input = scanner.nextLine(); // 다음에 들어온 명령어
             inputArr = input.split(" ");
-            System.out.print("🔥" + inputArr.length);
             boolean isExist = false;
 
             switch (inputArr[0]) {
                 case "exit":
-                    System.out.println("✨zsh을 종료합니다...");
+                    System.out.println("✨bye zsh...");
                     isExit = true;
                     break;
                 case "pwd":
@@ -80,10 +79,12 @@ public class Terminal extends Git {
                         if (inputArr.length == 2) {
                             setTouchFile(inputArr[1]);
                         } else {
-                            System.out.println("✨혹시 touch fileName을 쓰려고 하지않았나요? param이 2개라구요!");
+                            System.out.println("zsh: \'" + this.toString() + "\' is not a git command.\n\n" +
+                                    "The most similar command is\n\t\t" + ANSI_YELLOW +
+                                    "touch FILENAME" + ANSI_RESET);
                         }
-                    }else {
-                        System.out.println("여기선 파일 수정 못해");
+                    } else {
+                        System.out.println("zsh: here is not allowed. ONLY in " + ANSI_CYAN + "running git" + ANSI_RESET);
                     }
                     break;
                 case "new":
@@ -93,25 +94,26 @@ public class Terminal extends Git {
                         if (inputArr.length == 2)
                             setNewFile(inputArr[1]);
                         else
-                            System.out.println("✨혹시 new fileName을 쓰려고 하지않았나요? param이 2개라구요!");
-                    }else {
-                        System.out.println("여기선 파일생ㅅ어 못해 ");
+                            System.out.println("zsh: \'" + this.toString() + "\' is not a git command.\n\n" +
+                                    "The most similar command is\n\t\t" + ANSI_YELLOW +
+                                    "new FILENAME" + ANSI_RESET);
+                    } else {
+                        System.out.println("zsh: here is not allowed. ONLY in " + ANSI_CYAN + "running git" + ANSI_RESET);
                     }
                     break;
 
-
                 ////////////////////////git 명령어 ////////////////////
-
                 case "git":
-                    isExist = true;
                     if (prompt.equals("> ")) {
                         if (inputArr[1].equals("init")) {
+                            isExist = true;
                             // git init repo
                             init(inputArr[2]);
                             break;
-                        }else {
-                        System.out.println("✨zsh: command not found: " + ANSI_CYAN + this.toString() + ANSI_RESET);
-                        break;
+                        } else {
+                            isExist = true;
+                            System.out.println("✨zsh: command not found: " + ANSI_CYAN + this.toString() + ANSI_RESET);
+                            break;
 
                         }
                         // git이 아니면 사용불가
@@ -119,6 +121,7 @@ public class Terminal extends Git {
                     switch (inputArr[1]) {
                         case "branch":
                             // git branch ${branchName}
+                            isExist = true;
                             if (inputArr.length == 3)
                                 newBranch(inputArr[2]);
                             else if (inputArr.length == 2) {
@@ -131,6 +134,7 @@ public class Terminal extends Git {
                             break;
                         case "checkout":
                             // git checkout ${branchName}
+                            isExist = true;
                             if (inputArr.length == 3) {
                                 checkout(inputArr[2]);
                                 prompt = setGitPrompt(prompt);
@@ -141,6 +145,7 @@ public class Terminal extends Git {
                             break;
                         case "commit":
                             // git commit "${commitMsg}"
+                            isExist = true;
                             if (inputArr.length == 3) {
                                 if (inputArr[2].charAt(0) == '\"' && inputArr[2].charAt(inputArr[2].length() - 1) == '\"') {
                                     // 맨마지막 확인해야함 !! -1 되는ㄷ지 🔥
@@ -168,43 +173,47 @@ public class Terminal extends Git {
                             }
                             break;
                         case "add":
+                            isExist = true;
                             if (inputArr.length == 3)
                                 gitAdd(inputArr[2]);
                             else
-                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git --help'.\n\n" +
+                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git help'.\n\n" +
                                         "The most similar command is\n\t\t" + ANSI_YELLOW +
                                         "git add FILENAME" + ANSI_RESET);
                             break;
-                        //////////////////////////////////
                         case "log":
+                            isExist = true;
                             if (inputArr.length == 2)
                                 getLog();
                             else
-                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git --help'.\n\n" +
+                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git help'.\n\n" +
                                         "The most similar command is\n\t\t" + ANSI_YELLOW +
                                         "git log" + ANSI_RESET);
                             break;
                         case "status":
+                            isExist = true;
                             if (inputArr.length == 2)
                                 getBranchStatus();
                             else
-                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git --help'.\n\n" +
+                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git help'.\n\n" +
                                         "The most similar command is\n\t\t" + ANSI_YELLOW +
                                         "git status" + ANSI_RESET);
                             break;
                         case "push":
+                            isExist = true;
                             if (inputArr.length == 2)
                                 gitPush();
                             else
-                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git --help'.\n\n" +
+                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git help'.\n\n" +
                                         "The most similar command is\n\t\t" + ANSI_YELLOW +
                                         "git push" + ANSI_RESET);
                             break;
                         case "remote":
+                            isExist = true;
                             if (inputArr.length == 2)
                                 gitRemote();
                             else
-                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git --help'.\n\n" +
+                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git help'.\n\n" +
                                         "The most similar command is\n\t\t" + ANSI_YELLOW +
                                         "git remote" + ANSI_RESET);
                             break;
@@ -213,8 +222,8 @@ public class Terminal extends Git {
                     }
                 default:
                     // 해당 명령이 없는 경우
-                    if(!isExist)
-                        System.out.println("✨11111zsh: command not found: " + ANSI_CYAN + this.toString() + ANSI_RESET);
+                    if (!isExist)
+                        System.out.println("zsh: command not found: " + ANSI_CYAN + this.toString() + ANSI_RESET);
                     break;
             }
         } while (!isExit);

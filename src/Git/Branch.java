@@ -118,6 +118,9 @@ public class Branch extends Commit {
         } else {
             System.out.println(ANSI_RED+"✨add Failed!"+ANSI_RESET+ " - The file name does not exist. Please enter a valid file name."); // 그런파일없슴니다ㅠ
         }
+        fileMgr.updateStagingNotChanged();
+        fileMgr.updateOnlyStaging();
+        fileMgr.updateUntracked();
     }
 
     // git add .
@@ -128,6 +131,9 @@ public class Branch extends Commit {
         for(String str : untrackedName){
             setAdd(str);
         }
+        fileMgr.updateStagingNotChanged();
+        fileMgr.updateOnlyStaging();
+        fileMgr.updateUntracked();
     }
 
     // git push

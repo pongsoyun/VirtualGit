@@ -19,8 +19,6 @@ public class Git  extends Repository{
         curRepoIndex = -1;
     }
 
-    //////////////////////////////////////////////////////////////////////////////
-    /*-- GIT 명령어 --*/
     public void setNewRepo(String repoName) {
         Repository newRepo = new Repository(repoName); // repoName을 가진 새로운 레포 생성
         repos.add(newRepo);
@@ -34,10 +32,8 @@ public class Git  extends Repository{
     // 현재 레포이름과 같은애 찾아서 currentRepoIndex 바꿔주기
     // return : 현재 몇번째로 할지 리턴하기
     public boolean checkoutRepo(String repoName) {
-        // true : 잘됐어요!
-        // false : 안됐어요
         int i =0;
-        boolean isExist = false;
+        boolean isExist = false; // true : 성공! false : 실패
         for (Repository repo : repos) {
             if (repo.getRepoName().equals(repoName)) {
                 // 현재 init 한 애는 얘다
@@ -48,9 +44,9 @@ public class Git  extends Repository{
             i++;
         }
         if(isExist)
-            System.out.println("현재 init한 애는 " + curRepoIndex + " 에 있는 " + repos.get(curRepoIndex).getRepoName()); //아 repos[currentRepoIndex].getRepoName()이 이렇게 되나봐
+            System.out.println("✨Current Repository : "+ANSI_CYAN + repos.get(curRepoIndex).getRepoName()+ANSI_RESET);
         else
-            System.out.println("이런 레포 없어요.. ");
+            System.out.println(ANSI_RED+"The repository does not exist."+ANSI_RESET);
 
         return isExist;
     }
@@ -85,8 +81,7 @@ public class Git  extends Repository{
     public void gitPush() {
         Branch branch = repos.get(curRepoIndex).getBranch();
         String contents = branch.getCommitLog();
-        // 폴더 : 레포 이름
-        // 파일 : 레포/branch 이름
+        // 폴더 : 레포 이름, 파일 : 레포_branch 이름
         makeFile(repos.get(curRepoIndex).getRepoName(), repos.get(curRepoIndex).getBranchName(), contents);
         branch.setPush();
     }
@@ -126,12 +121,7 @@ public class Git  extends Repository{
 
     }
 
-
-
-
-    //////////////////////////////////////////////////////////////////////////////
-    /*-- prompt 셋팅 --*/
-    // Terminal의 prompt를 바꾸는 부분
+    // prompt 셋팅
     public String setGitPrompt(String prompt) {
         return repos.get(curRepoIndex).getRepoName() + "/" + repos.get(curRepoIndex).getBranchName() + "> ";
     }

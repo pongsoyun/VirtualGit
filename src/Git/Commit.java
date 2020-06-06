@@ -2,6 +2,9 @@ package Git;
 
 import java.util.Calendar;
 
+import static Terminal.Color.ANSI_RESET;
+import static Terminal.Color.ANSI_YELLOW;
+
 public class Commit {
     String msg;
     String time;
@@ -14,7 +17,7 @@ public class Commit {
     public void setCommit(String msg){
         setMsg(msg);
         setTime();
-        System.out.println("✨SUCCESS commit add! : "+this.msg);
+        System.out.println(ANSI_YELLOW+"🎉Commit SUCCESS!" +ANSI_RESET);
     }
 
     private void setMsg(String msg) {

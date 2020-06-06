@@ -22,20 +22,19 @@
 
 ## CLI UI + Test Code 필요
 
--   [ ] color 함수로 감싸기
--   [ ] cli color 적용
--   [ ] cli 문구 수정
+-   [x] cli color 적용
+-   [x] cli 문구 수정
 -   [x] git status 스냅샷 예쁘게 다듬기
 -   [ ] cli 에러핸들링 - 혹시나 마지막에 띄어쓰기 나올경우 판단하는지 에러 핸들링 나중에 하기
--   [ ] cli 다른문자입력시 안한거없는지 확인
--   [ ] Terminal , Git Package 별 터미널 다시한번 확인
+-   [x] cli 다른문자입력시 안한거없는지 확인
+-   [x] Terminal , Git Package 별 터미널 다시한번 확인
 -   [ ] git help? 시간남으면 이거 다 정리해서 두면 깔끔!
 -   [ ] git author? 시간남으면 이거 다 정리해서 두면 깔끔!
 
 ## BUG
 
--   [ ] 현재 commitmessage 한단락아니면 안됨 수정
--   [ ] @Override 라고 하나 써놓은거있는데 참고 -> swap()
+-   [x] 현재 commitmessage 한단락아니면 안됨 수정
+-   [x] @Override 라고 하나 써놓은거있는데 참고 -> swap()
 -   [x] ㅎ.. .커밋 두개이상 하면 버그남
 -   [x] commitLog 스냅샷 그대로 찍는거 예외없이
 -   [x] 그리고 touch하면 직므 변경이 안돼
