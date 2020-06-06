@@ -12,11 +12,6 @@ class FileMgr {
     StringBuffer snapshotsBefore = new StringBuffer();
     StringBuffer snapshots = new StringBuffer();
 
-    @Override
-    public String toString() {
-        return toString();
-    }
-
     public boolean isSnapshotsExist() {
         if (snapshots.length() == 0)
             return false;
@@ -261,7 +256,7 @@ class FileMgr {
     // StagingNotChanged -> Modified 가 아니라 modified: 아니면 new file: 로!!!!
     public File touchFile(File file) {
         file.setStatus(Status.MODIFIED);
-        System.out.println("수정됩니다 MODIFIED가 되어야정상" + file.getStatus());
+//        System.out.println("수정됩니다 MODIFIED가 되어야정상" + file.getStatus());
         return file;
     }
 

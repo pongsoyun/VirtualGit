@@ -11,7 +11,8 @@ public class Git  extends Repository{
 
     @Override
     public String toString() {
-        return getClass().getName();
+        return "Current Repository >> origin "  + ANSI_BLUE
+                + repos.get(curRepoIndex).getRepoName() + " " + ANSI_RESET + "(fetch)";
     }
 
     public Git() {
@@ -73,6 +74,11 @@ public class Git  extends Repository{
     public void getLog() {
         Branch branch = repos.get(curRepoIndex).getBranch();
         System.out.println(branch.getCommitLog());
+    }
+
+    // git remote
+    public void gitRemote(){
+        System.out.println(this.toString());
     }
 
     // git push

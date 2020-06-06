@@ -115,6 +115,8 @@ public class Terminal extends Git {
                                 break;
                             case "push":
                                 gitPush();
+                            case "remote":
+                                gitRemote();
                                 break;
                             default:
                                 break;

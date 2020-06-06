@@ -7,11 +7,10 @@ public class Repository extends Branch {
     private String repoName;
     private int curBranchIndex;
     private ArrayList<Branch> branches = new ArrayList<>();
-    // RepoName으로 생성
 
     @Override
     public String toString() {
-        return getClass().getName();
+        return "origin "  + ANSI_BLUE + repoName + " " + ANSI_RESET + "(fetch)";
     }
 
     // default 생성

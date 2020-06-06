@@ -1,7 +1,6 @@
 # VirtualGit
 
 -   [x] pwd
--   [ ] ls은 나중에..
 -   [x] exit
 -   [x] cd
 -   [x] cd \${repoName} -> remote/branch > 로 해야함
@@ -11,11 +10,10 @@
 -   [x] git log
 -   [x] git branch
 -   [x] git status -> 스냅샷 👀예쁘게 다듬어야함. Class 순서대로 안보여짐 아직
-
-<!-- -   [ ] git clone \${repoName} -> repoName 폴더만들기로? -->
+-   [x] git remote -> @Overriding toString();
 
 -   [x] git init \${repoName}
--   [x] git push \${repoName} -> remote/branch.txt 생성하고 현재까지 커밋로그 저장
+-   [x] git push \${repoName} -> 폴더, remote/branch.txt 생성하고 현재까지 커밋로그 저장
 -   [x] git checkout \${branchName} -> repoName/branchName >
 -   [x] git branch \${branchName}
 -   [x] git add \${fileName}
@@ -40,7 +38,7 @@
 -   [x] commitLog 스냅샷 그대로 찍는거 예외없이
 -   [x] 그리고 touch하면 직므 변경이 안돼
 -   [x] 커밋하고나서 snapshot에 남아있네
--   [ ] New 파일인데 modified 로 올려지기도 ㅇㅇ...
+-   [x] New 파일인데 modified 로 올려지기도 ㅇㅇ...
 
 # class `Repository`
 
@@ -71,3 +69,17 @@
     - gitInit(String repoName)
         : 해당 레포이름을 만든다
         > git init ${repoName}
+
+```
+public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
+
+```
