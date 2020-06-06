@@ -34,7 +34,7 @@ public class Branch extends Commit {
                     ANSI_BLUE+"🎉Let's First Commit!" + ANSI_RESET); // 완전 클린! 첫 커밋 해달라할떄
         }
         for (Commit commit : commits) {
-            str.append(ANSI_YELLOW+"commit "+(int)Math.random()*1000000+ANSI_RESET+"\n"); // fake commit ID
+            str.append(ANSI_YELLOW+"commit "+(int)(Math.random()*1000000)+ANSI_RESET+"\n"); // fake commit ID
             str.append("Author: pongsoyun <thdbstjdud@gmail.com>"); // fake Author ID.
             str.append("Date:\t"+commit.getTime()+"\n"); //
             str.append("\n\t"+commit.getMsg()+"\n\n");
@@ -74,6 +74,7 @@ public class Branch extends Commit {
             System.out.println(ANSI_RED+"✨new Failed!"+ANSI_RESET+ " - The file name already exists. Please enter a different filename."); // 파일존재합니다ㅠ
         } else {
             fileMgr.setFile(name); // new = untracked(만들기)
+            System.out.println("🎉new file "+ANSI_YELLOW+name+ANSI_RESET+" SUCCESS!");
         }
     }
 
@@ -87,6 +88,7 @@ public class Branch extends Commit {
             fileMgr.updateStagingNotChanged();
             fileMgr.updateOnlyStaging();
             fileMgr.updateUntracked();
+            System.out.println("🎉EDIT file "+ANSI_YELLOW+name+ANSI_RESET+" !");
         } else {
             System.out.println(ANSI_RED+"✨touch Failed!"+ANSI_RESET+ " - The file name does not exist. Please enter a valid file name."); // 그런파일없슴니다ㅠ
         }

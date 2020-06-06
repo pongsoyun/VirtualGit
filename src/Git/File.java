@@ -104,6 +104,10 @@ class FileMgr {
                     }
                 } else if ((file instanceof StagingNotChanged)) {
                     // 해당 파일이 지금 변경되지 않았는데, 아까 푸쉬했을 경우
+                    if (!file.getStatus().equals(Status.NOTCHANGED)) {
+                        System.out.println("일단 나셍친 이좈애ㅣㅇ22222");
+                        str.append(ANSI_RED + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
+                    }
                     str.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
                 }
             }
@@ -112,11 +116,10 @@ class FileMgr {
                 System.out.println(str);
                 snapshotsBefore = str;
             } else {
+                // snapshotBefore -> 실제 깃에서도 바이지 않기때문에, 보이지 않게합니다
 //                System.out.println("Changes to be committed:\n\n");
-                System.out.println(snapshotsBefore);
+//                System.out.println(snapshotsBefore);
             }
-        } else {
-            System.out.println("바뀐거없다");
         }
     }
 
@@ -234,7 +237,7 @@ class FileMgr {
             File stagingFile = new OnlyStaging();
             stagingFile.setFile(file.getFileName());
             file = stagingFile;
-            System.out.println(ANSI_YELLOW+"🎉add SUCCESS!" +ANSI_RESET+stagingFile.getFileName() + " is Staging!");
+            System.out.println("🎉add SUCCESS! " +ANSI_YELLOW+stagingFile.getFileName() +ANSI_RESET+ " is Staging!");
         } else {
             System.out.println("nothing to add, There's no more files to add!"); // add할 파일이 없어요
         }
@@ -270,12 +273,9 @@ class FileMgr {
     public String getSnapShot() {
         return this.snapshots.toString();
     }
-
-
 }
 
 public interface File {
-    // 모두 public
     void setFile(String name);
 
     String getFileName();

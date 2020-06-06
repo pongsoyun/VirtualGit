@@ -22,6 +22,8 @@
 
 ## CLI UI + Test Code 필요
 
+맨위섹션 -> isChanged false면 출력안하는거임 //snapshotBefore!
+
 -   [x] cli color 적용
 -   [x] cli 문구 수정
 -   [x] git status 스냅샷 예쁘게 다듬기
