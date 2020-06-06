@@ -123,6 +123,11 @@ public class Branch extends Commit {
     // git add .
     public void setAddAll() {
         // Untracked 모두 찾아서 setAdd 해줘야함
+        ArrayList<String> untrackedName;
+        untrackedName = fileMgr.searchUntrackedFiles();
+        for(String str : untrackedName){
+            setAdd(str);
+        }
     }
 
     // git push

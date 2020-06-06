@@ -43,8 +43,8 @@ class FileMgr {
         return false;
     }
 
+    // 해당 이름 파일찾기
     public File searchFile(String name) {
-
         for (File file : files) {
             if (name.equals(file.getFileName())) {
                 return file;
@@ -52,6 +52,16 @@ class FileMgr {
         }
         System.out.println("해당 파일 이름 없음. 엥 ? 여기서 나오면 안되는데 ");
         return null;
+    }
+
+    public ArrayList<String> searchUntrackedFiles(){
+        ArrayList<String> str = new ArrayList<String>();
+        for(File file : files){
+            if(file instanceof Untracked){
+                str.add(file.getFileName());
+            }
+        }
+        return str;
     }
 
     public void getClean() {
@@ -246,6 +256,8 @@ class FileMgr {
     public String getSnapShot(){
             return this.snapshots.toString();
     }
+
+
 }
 
 public interface File {
