@@ -88,9 +88,7 @@ public class Git  extends Repository{
         // 폴더 : 레포 이름
         // 파일 : 레포/branch 이름
         makeFile(repos.get(curRepoIndex).getRepoName(), repos.get(curRepoIndex).getBranchName(), contents);
-        // if(FOLDER) FILEWRITE : MAKE&FILEWRITE;
-        // FILE WRITE
-
+        branch.setPush();
     }
 
     // git commit "msg"

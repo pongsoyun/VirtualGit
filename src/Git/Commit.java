@@ -1,6 +1,6 @@
 package Git;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 
 public class Commit {
     String msg;
@@ -22,15 +22,8 @@ public class Commit {
     }
 
     private void setTime() {
-        LocalDateTime timePoint = LocalDateTime.now();
-        int month = timePoint.getMonthValue();
-        int day = timePoint.getDayOfMonth();
-        int hour = timePoint.getHour();
-        int minute = timePoint.getMinute();
-        int second = timePoint.getSecond();
-
-        String time = month + "/" + day + "  " + hour + ":" + minute + ":" + second;
-        this.time = time;
+        Calendar time = Calendar.getInstance();
+        this.time = time.getTime().toString();
     }
 
     public String getMsg() {

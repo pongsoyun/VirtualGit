@@ -159,6 +159,7 @@ public class Terminal extends Git {
                                     commitMsg += inputArr[j];
                                     commitMsg += " ";
                                 }
+                                commitMsg = commitMsg.substring(1, commitMsg.length() - 2); // ""자르기
                                 commit(commitMsg);
                             } else {
                                 System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git help'.\n\n" +

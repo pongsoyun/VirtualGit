@@ -1,0 +1,12 @@
+6/6  22:57:26
+"hello first commit" 
+[31m			NEWFILE:	aaa
+[0m[31m			NEWFILE:	bbb
+[0m[31m			NEWFILE:	ccc
+[0m
+
+6/6  22:57:40
+shwwhw
+[31m			MODIFIED:	aaa
+[0m
+

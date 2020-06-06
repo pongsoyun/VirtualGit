@@ -30,6 +30,7 @@
 -   [ ] cli 다른문자입력시 안한거없는지 확인
 -   [ ] Terminal , Git Package 별 터미널 다시한번 확인
 -   [ ] git help? 시간남으면 이거 다 정리해서 두면 깔끔!
+-   [ ] git author? 시간남으면 이거 다 정리해서 두면 깔끔!
 
 ## BUG
 
