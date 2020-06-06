@@ -1,0 +1,26 @@
+[33mcommit 556511[0m
+Author: pongsoyun <thdbstjdud@gmail.com>Date:	Sun Jun 07 03:19:41 KST 2020
+
+	awefgsd
+
+[32m			NEWFILE:	aaa
+[0m[32m			NEWFILE:	bbb
+[0m
+
+[33mcommit 546107[0m
+Author: pongsoyun <thdbstjdud@gmail.com>Date:	Sun Jun 07 03:20:41 KST 2020
+
+	wgjkewjakg
+
+[31m			MODIFIED:	aaa
+[0m
+
+[33mcommit 913100[0m
+Author: pongsoyun <thdbstjdud@gmail.com>Date:	Sun Jun 07 03:21:04 KST 2020
+
+	afsdgwesd
+
+[32m			NEWFILE:	abc
+[0m[31m			MODIFIED:	bbb
+[0m
+
