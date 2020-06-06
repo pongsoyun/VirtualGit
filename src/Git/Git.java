@@ -2,7 +2,7 @@ package Git;
 
 import java.util.ArrayList;
 import static Terminal.Color.*;
-import static Terminal.FileMgr.*;
+import static Terminal.FileIOMgr.*;
 
 public class Git  extends Repository{
     public ArrayList<Repository> repos = new ArrayList<>(); // 여기서 생성하고, 사용
@@ -27,6 +27,15 @@ public class Git  extends Repository{
     public void init(String newRepoName){
         curRepoIndex++;
         setNewRepo(newRepoName); // 해당 이름으로 레포 추가함
+    }
+
+    // zsh 에서 ls
+    public String getRepos() {
+        StringBuffer result = new StringBuffer();
+        for(Repository repo: repos){
+            result.append(repo.getRepoName()+"\t");
+        }
+        return result.toString();
     }
 
     // 현재 레포이름과 같은애 찾아서 currentRepoIndex 바꿔주기

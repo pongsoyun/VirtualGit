@@ -25,6 +25,11 @@ public class Branch extends Commit {
         return name;
     }
 
+    // ls
+    public String getLS() {
+        return fileMgr.getFilesName();
+    }
+
 
     // git log
     public String getCommitLog() {
@@ -73,7 +78,7 @@ public class Branch extends Commit {
         if (fileMgr.isExist(name)) {
             System.out.println(ANSI_RED+"✨new Failed!"+ANSI_RESET+ " - The file name already exists. Please enter a different filename."); // 파일존재합니다ㅠ
         } else {
-            fileMgr.setFile(name); // new = untracked(만들기)
+            fileMgr.setNewFile(name); // new = untracked(만들기)
             System.out.println("🎉new file "+ANSI_YELLOW+name+ANSI_RESET+" SUCCESS!");
         }
     }

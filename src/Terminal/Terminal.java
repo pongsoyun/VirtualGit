@@ -51,6 +51,32 @@ public class Terminal extends Git {
                     System.out.println("✨bye zsh...");
                     isExit = true;
                     break;
+                case "ls":
+                    // git에서 사용시 파일 목록, zsh에서 사용시 레포 목록
+                     isExist = true;
+                     if(inputArr.length==1){
+                         if(prompt == "> "){
+                             if(getRepos().length()==0){
+                                 System.out.println("None git Repository. Let's " + ANSI_BLUE + "git init REPOSITORYNAME "+ANSI_RESET + "!");
+                             }else {
+                                 System.out.println(getRepos());
+                             }
+                         }
+                         else
+                         {
+                             if(getLS().length() ==0)
+                             {
+                                 System.out.println("None files. Let's " + ANSI_BLUE + "new FILENAME"+ANSI_RESET + "!");
+                             }else{
+                                 System.out.println(getLS());
+                             }
+                         }
+                     }else {
+                         System.out.println("zsh: \'" + this.toString() + "\' is not a zsh command.\n\n" +
+                                 "The most similar command is\n\t\t" + ANSI_YELLOW +
+                                 "ls" + ANSI_RESET);
+                     }
+                     break;
                 case "pwd":
                     // 현재 git init하여 사용하고있는 상태인지 알려줌
                     isExist = true;
@@ -79,7 +105,7 @@ public class Terminal extends Git {
                         if (inputArr.length == 2) {
                             setTouchFile(inputArr[1]);
                         } else {
-                            System.out.println("zsh: \'" + this.toString() + "\' is not a git command.\n\n" +
+                            System.out.println("zsh: \'" + this.toString() + "\' is not a zsh command.\n\n" +
                                     "The most similar command is\n\t\t" + ANSI_YELLOW +
                                     "touch FILENAME" + ANSI_RESET);
                         }
@@ -94,7 +120,7 @@ public class Terminal extends Git {
                         if (inputArr.length == 2)
                             setNewFile(inputArr[1]);
                         else
-                            System.out.println("zsh: \'" + this.toString() + "\' is not a git command.\n\n" +
+                            System.out.println("zsh: \'" + this.toString() + "\' is not a zsh command.\n\n" +
                                     "The most similar command is\n\t\t" + ANSI_YELLOW +
                                     "new FILENAME" + ANSI_RESET);
                     } else {
@@ -127,7 +153,7 @@ public class Terminal extends Git {
                             else if (inputArr.length == 2) {
                                 getBranchList();
                             } else {
-                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git --help'.\n\n" +
+                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git help'.\n\n" +
                                         "The most similar command is\n\t\t" + ANSI_YELLOW +
                                         "git branch BRANCHNAME" + ANSI_RESET);
                             }
@@ -139,7 +165,7 @@ public class Terminal extends Git {
                                 checkout(inputArr[2]);
                                 prompt = setGitPrompt(prompt);
                             } else
-                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git --help'.\n\n" +
+                                System.out.println("git: \'" + this.toString() + "\' is not a git command. See 'git help'.\n\n" +
                                         "The most similar command is\n\t\t" + ANSI_YELLOW +
                                         "git checkout BRANCHNAME" + ANSI_RESET);
                             break;

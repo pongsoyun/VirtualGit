@@ -1,5 +1,6 @@
 package Git;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import static Git.FileMgr.*;
@@ -20,8 +21,25 @@ class FileMgr {
     }
 
 
+    // ls
+    public String getFilesName() {
+//        System.out.println("========"+ files.get(0).getFileName());
+        String result  =  "";
+        for (File file : files) {
+            if(file instanceof StagingNotChanged)
+                result += file.getFileName()+"\t";
+            if(file instanceof OnlyStaging)
+                result += file.getFileName()+"\t";
+            if(file instanceof Untracked)
+                result+= file.getFileName()+"\t";
+
+        }
+        return result;
+    }
+
+
     // new file
-    public void setFile(String name) {
+    public void setNewFile(String name) {
         // new = untracked
         File file = new Untracked();
         file.setFile(name);
@@ -63,10 +81,10 @@ class FileMgr {
         for (File file : files) {
             if ((file instanceof StagingNotChanged)) {
                 // StagingNotChanged 모두
-                newSnapShot.append(ANSI_RED+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                newSnapShot.append(ANSI_RED + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
             } else if (file instanceof OnlyStaging && file.getStatus().equals(Status.NEWFILE)) {
                 // OnlyStaging && NEWFILE
-                newSnapShot.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                newSnapShot.append(ANSI_GREEN + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
             }
         }
         snapshotsBefore.setLength(0);
@@ -100,7 +118,7 @@ class FileMgr {
                     if (snapshotsBefore.toString().contains(file.getFileName())) {
                         isChanged = true;
                         file.setStatus(Status.MODIFIED);
-                        str.append(ANSI_RED+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                        str.append(ANSI_RED + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
                     }
                 } else if ((file instanceof StagingNotChanged)) {
                     // 해당 파일이 지금 변경되지 않았는데, 아까 푸쉬했을 경우
@@ -108,7 +126,7 @@ class FileMgr {
                         System.out.println("일단 나셍친 이좈애ㅣㅇ22222");
                         str.append(ANSI_RED + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
                     }
-                    str.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                    str.append(ANSI_GREEN + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
                 }
             }
             if (isChanged) {
@@ -135,14 +153,14 @@ class FileMgr {
             if (file instanceof StagingNotChanged) {
                 if (file.getStatus().equals(Status.MODIFIED)) {
                     isExist = true;
-                    snapshots.append(ANSI_RED+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
-                    str.append(ANSI_RED+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                    snapshots.append(ANSI_RED + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
+                    str.append(ANSI_RED + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
                 }
             }
             if (file instanceof OnlyStaging) {
                 isExist = true;
-                snapshots.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
-                str.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                snapshots.append(ANSI_GREEN + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
+                str.append(ANSI_GREEN + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
             }
         }
         if (isExist)
@@ -168,11 +186,11 @@ class FileMgr {
                     if (snapshotsBefore.toString().contains(file.getFileName())) {
                         isChanged = true;
                         file.setStatus(Status.MODIFIED);
-                        str.append(ANSI_RED+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                        str.append(ANSI_RED + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
                     }
                 } else if ((file instanceof StagingNotChanged)) {
                     // 해당 파일이 지금 변경되지 않았는데, 아까 푸쉬했을 경우
-                    str.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                    str.append(ANSI_GREEN + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
                 }
             }
 
@@ -188,11 +206,11 @@ class FileMgr {
         for (File file : files) {
             if (file instanceof StagingNotChanged) {
                 if (file.getStatus().equals(Status.MODIFIED)) {
-                    snapshots.append(ANSI_RED+ "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                    snapshots.append(ANSI_RED + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
                 }
             }
             if (file instanceof OnlyStaging) {
-                snapshots.append(ANSI_GREEN+"\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n"+ANSI_RESET);
+                snapshots.append(ANSI_GREEN + "\t\t\t" + file.getStatus().toString() + ":\t" + file.getFileName() + "\n" + ANSI_RESET);
             }
         }
     }
@@ -214,7 +232,7 @@ class FileMgr {
         for (File file : files) {
             if (file instanceof Untracked) {
                 isExist = true;
-                str.append(ANSI_RED+"\t\t\t" + file.getFileName() + "\n"+ANSI_RESET);
+                str.append(ANSI_RED + "\t\t\t" + file.getFileName() + "\n" + ANSI_RESET);
             }
         }
         if (isExist)
@@ -237,7 +255,7 @@ class FileMgr {
             File stagingFile = new OnlyStaging();
             stagingFile.setFile(file.getFileName());
             file = stagingFile;
-            System.out.println("🎉add SUCCESS! " +ANSI_YELLOW+stagingFile.getFileName() +ANSI_RESET+ " is Staging!");
+            System.out.println("🎉add SUCCESS! " + ANSI_YELLOW + stagingFile.getFileName() + ANSI_RESET + " is Staging!");
         } else {
             System.out.println("nothing to add, There's no more files to add!"); // add할 파일이 없어요
         }
