@@ -7,14 +7,15 @@
 -   [x] cd \${repoName} -> remote/branch > 로 해야함
 -   [x] touch \${fileName}
 -   [x] new \${fileName}
--   [ ] git push
+-   [x] git push
 -   [x] git log
 -   [x] git branch
 -   [x] git status -> 스냅샷 👀예쁘게 다듬어야함. Class 순서대로 안보여짐 아직
 
--   [x] git clone \${repoName} -> repoName 폴더만들기로?
+<!-- -   [ ] git clone \${repoName} -> repoName 폴더만들기로? -->
+
 -   [x] git init \${repoName}
--   [ ] git push \${repoName} -> remote/branch.txt 생성하고 현재까지 커밋로그 저장
+-   [x] git push \${repoName} -> remote/branch.txt 생성하고 현재까지 커밋로그 저장
 -   [x] git checkout \${branchName} -> repoName/branchName >
 -   [x] git branch \${branchName}
 -   [x] git add \${fileName}
@@ -39,6 +40,7 @@
 -   [x] commitLog 스냅샷 그대로 찍는거 예외없이
 -   [x] 그리고 touch하면 직므 변경이 안돼
 -   [x] 커밋하고나서 snapshot에 남아있네
+-   [ ] New 파일인데 modified 로 올려지기도 ㅇㅇ...
 
 # class `Repository`
 

@@ -35,6 +35,7 @@ public class Branch extends Commit {
     // git log
     public String getCommitLog() {
         StringBuffer str = new StringBuffer();
+        System.out.println("commit 길이는? "+commits.size());
         for (Commit commit : commits) {
             str.append(commit.getTime()+"\n");
             str.append(commit.getMsg()+"\n");
@@ -55,6 +56,9 @@ public class Branch extends Commit {
         if(fileMgr.getSnapShot().length()!=0){
             // 커밋 새로 만들기
             Commit commit = new Commit();
+            fileMgr.updateOnlyStaging();
+            fileMgr.updateUntracked();
+
             commit.setCommit(commitMsg);
             commit.setFileLog(fileMgr.getSnapShot()); // fileLog셋팅
 
@@ -68,6 +72,7 @@ public class Branch extends Commit {
         }else {
             System.out.println("COMMIT LOG가 깔끔한데요? 할 커밋이 없어요");
         }
+        fileMgr.updateOnlyStaging();
     }
 
     // new fileName

@@ -10,7 +10,5 @@ public class Client {
     public static void main(String[] args) throws IOException {
         Terminal zsh = new Terminal();
         zsh.run();
-//    "./TermProject/src/sample.txt"
-
     }
 }

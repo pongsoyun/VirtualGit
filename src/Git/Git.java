@@ -80,9 +80,8 @@ public class Git  extends Repository{
         Branch branch = repos.get(curRepoIndex).getBranch();
         String contents = branch.getCommitLog();
         // 폴더 : 레포 이름
-        makeFolder(repos.get(curRepoIndex).getRepoName());
         // 파일 : 레포/branch 이름
-
+        makeFile(repos.get(curRepoIndex).getRepoName(), repos.get(curRepoIndex).getBranchName(), contents);
         // if(FOLDER) FILEWRITE : MAKE&FILEWRITE;
         // FILE WRITE
 
