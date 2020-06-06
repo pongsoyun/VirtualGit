@@ -22,20 +22,18 @@ class FileMgr {
 
 
     // ls
-    public String getFilesName() {
-//        System.out.println("========"+ files.get(0).getFileName());
-        String result  =  "";
-        for (File file : files) {
-            if(file instanceof StagingNotChanged)
-                result += file.getFileName()+"\t";
-            if(file instanceof OnlyStaging)
-                result += file.getFileName()+"\t";
-            if(file instanceof Untracked)
-                result+= file.getFileName()+"\t";
-
-        }
-        return result;
-    }
+//    public String getFilesName() {
+//        String str = "";
+//        System.out.println(this.files.size());
+//        this.getFiles();
+//        System.out.println(this.files.size());
+//
+//        for(int j=0 ; j<files.size(); j++){
+//            System.out.println(files.get(j).getFileName());
+//            str += files.get(j).getFileName();
+//        }
+//        return str;
+//    }
 
 
     // new file

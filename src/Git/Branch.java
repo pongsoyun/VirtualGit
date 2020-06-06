@@ -40,7 +40,7 @@ public class Branch extends Commit {
         }
         for (Commit commit : commits) {
             str.append(ANSI_YELLOW+"commit "+(int)(Math.random()*1000000)+ANSI_RESET+"\n"); // fake commit ID
-            str.append("Author: pongsoyun <thdbstjdud@gmail.com>"); // fake Author ID.
+            str.append("Author: pongsoyun <thdbstjdud@gmail.com>\n"); // fake Author ID.
             str.append("Date:\t"+commit.getTime()+"\n"); //
             str.append("\n\t"+commit.getMsg()+"\n\n");
             str.append(commit.getFileLog()+"\n");
