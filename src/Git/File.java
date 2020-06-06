@@ -6,7 +6,7 @@ import static Git.FileMgr.*;
 import static Terminal.Color.*;
 
 class FileMgr {
-    enum Status {NEWFILE, MODIFIED}
+    enum Status {NEWFILE, MODIFIED, NOTCHANGED}
 
     ArrayList<File> files = new ArrayList<File>();
     StringBuffer snapshotsBefore = new StringBuffer();
@@ -55,8 +55,24 @@ class FileMgr {
     }
 
     public void getClean() {
-        snapshotsBefore.append(snapshots);
         snapshots.setLength(0); // 초기화
+        // 요 안에서도 같은거있는지 확인하고 없애야함ㅊㅊ -> 그냥 다시 넣어주기
+        StringBuffer newSnapShot = new StringBuffer();
+        for(File file: files){
+            if((file instanceof  StagingNotChanged)){
+                // 스테이징인데 수정된거잇다면 또더하기 그러니까-> 걔 빼고 append 할거임
+                // StagingNotChanged 모두
+                // OnlyStaging && NEWFILE
+                newSnapShot.append(ANSI_GREEN + "\t\t\t"+file.getStatus().toString()+":\t"+file.getFileName()+"\n"+ANSI_RESET);
+            }else if(file instanceof OnlyStaging && file.getStatus().equals(Status.NEWFILE)){
+                newSnapShot.append(ANSI_GREEN + "\t\t\t"+file.getStatus().toString()+":\t"+file.getFileName()+"\n"+ANSI_RESET);
+            }
+        }
+        snapshotsBefore.setLength(0);;
+        snapshotsBefore.append(newSnapShot);
+        // 🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // AllCommitLog.append(snapshotsBefore);
+        System.out.println("snapshots 초기화 됐을까? "+ snapshots.length());
     }
 
     // 모든 파일 알려주기
@@ -72,20 +88,62 @@ class FileMgr {
     }
 
 
+    public StringBuffer compareSnapShots(StringBuffer snapshots){
+        // commit 이력이 존재하는 파일명찾아서 넣어야함
+        StringBuffer compareSnapShots = new StringBuffer();
+        int fileIndex = snapshotsBefore.indexOf(""); // fileName이 있는 index 찾기
+        return compareSnapShots;
+    }
+
     // 🐛발견 !!
     // 현재 그냥 StringBuffer 로 넣기만 해서, new file: abc (push)-> modified: abc (commit)  내역이 그대로 저장됨
     public void getAllStagingNotChanged() {
         boolean isExist = false;
         StringBuffer str = new StringBuffer();
-        str.append("Changes to be committed:\n\n");
+        boolean isChanged = false; // 만약에 아까 푸쉬한애가 변경되었다면
 
+
+        // 이전에 커밋이력이 없다면 변경존재한다고 하고 밑에서 변경할거임
+        // push하면 snapshotsBefore = 0으로만들어줘야함
         if(snapshotsBefore.length()!=0)
             isExist = true;
 
+        // 이전했던 커밋이력이 있다면 변경할건데
         if(isExist){
-            System.out.println(str);
-            System.out.print(snapshotsBefore);
+            str.append("Changes to be committed:\n\n");
+            for(File file : files){
+                /*
+               1. 지금 커밋한애들중에, 아까 푸쉬한애(snapShotBefore)가 있나 ? 찾아보자
+                 */
+                if(file.getStatus().equals(Status.MODIFIED)){
+                    // 만약 해당이름의 파일이 존재한다면
+                    if(snapshotsBefore.toString().contains(file.getFileName())){
+                        isChanged = true;
+                        file.setStatus(Status.MODIFIED);
+                        str.append(ANSI_RED + "\t\t\t"+file.getStatus().toString()+":\t"+file.getFileName()+"\n"+ANSI_RESET);
+                    }
+                }else if((file instanceof StagingNotChanged)){
+                    // 해당 파일이 지금 변경되지 않았는데, 아까 푸쉬했을 경우
+                    str.append(ANSI_RED + "\t\t\t"+file.getStatus().toString()+":\t"+file.getFileName()+"\n"+ANSI_RESET);
+
+                }
+            }
+
+
+
+            /////////////////////////////////////////////////////////
+
+            if(isChanged){
+                System.out.println(str);
+                snapshotsBefore = str;
+            }else {
+                System.out.println(snapshotsBefore);
+            }
+        }else {
+            // cleaned 뭐 뽑아야되는거아님?
+            System.out.println("바뀐거없다");
         }
+
     }
 
     public void getAllOnlyStaging(){
@@ -135,28 +193,6 @@ class FileMgr {
     public File touchFile(File file) {
         file.setStatus(Status.MODIFIED);
         System.out.println("수정됩니다 MODIFIED가 되어야정상"+file.getStatus());
-//        if(file.getStatus() == Status.NEWFILE){
-//            file.setStatus(Status.MODIFIED);
-//        }
-        // 1. 상태 받아와서 -> modified로 바꾼다
-        // 1.5 touchedFile에 file을 대입하고
-        // 2. 해당 바꾼 애를 리턴한다
-
-//        if (file instanceof StagingNotChanged) {
-//            touchedFile = new OnlyStaging();
-//            touchedFile.setFile(file.getFileName());
-//
-//            System.out.println("✨파일이 수정되었습니다");
-//        }  else if(file instanceof Untracked){
-//            System.out.println("untracked 야!! add하고, 수정해줘");
-//            touchedFile = file;
-//        }
-//        else {
-//            // StagingChanged, Untracked는 원래 상태 그대로 :)
-//            System.out.println("✨파일 수정 못했어요.. 뭔가 이상했나봐요.. >>" + file.getClass() + "<<이라는데요?");
-//            touchedFile = file; // 그냥 고대로 보내기
-//        }
-
         return file;
     }
 
@@ -174,13 +210,15 @@ class FileMgr {
         return file;
     }
 
-    // add 하고나서 변경하는 코드. untracked <-> OnlyStaging로
+    // add 하고나서 변경하는 코드.
     public void swapFile(File file, File newFile){
         files.remove(file);
         files.add(newFile);
 //        return file; // 원래 File이었는데 안써서 걍 다시바꿈
         System.out.println("바꿈. 두번째것 : " + newFile.getStatus());
     }
+
+
 
     // git commit 하고나서 들어오는것
     // Modified -> StagingnotChanged
@@ -196,7 +234,14 @@ class FileMgr {
                     stagingFile.setFile(files.get(j).getFileName());
                     swapFile(files.get(j), stagingFile);
                     j--; // 그럼 현재것을 가리키라고 한번 해보자
+                }else if(files.get(j) instanceof StagingNotChanged){
+                    System.out.println(files.get(j)+" 이 이전에Commited된, ++"+files.get(j).getStatus()+"++상태의 파일인가봐요");
+                    files.get(j).setStatus(Status.NOTCHANGED); // 변경안된것
                 }
+//                if(files.get(j) instanceof StagingNotChanged){
+//                    System.out.println(files.get(j)+" 이 이전에Commited된, ++"+files.get(j).getStatus()+"++상태의 파일인가봐요");
+//                    files.get(j).setStatus(Status.NOTCHANGED); // 변경안된것
+//                }
             }
             getClean();
         }
