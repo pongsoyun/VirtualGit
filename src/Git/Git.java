@@ -140,50 +140,5 @@ public class Git  extends Repository{
     // git help
     public void gitHelp() {
         FileIOMgr.readFile();
-        // 파일읽기?
-//        System.out.print("✋\uD83C\uDFFB Hi! This is Virtual git Program ✋\uD83C\uDFFB\n" +
-//                "Author : SoYun Bang, School Of Global Media, in Soongsil Univ.\n" +
-//                "AuthorID : 20162574\n" +
-//                "Contact : thdbstjdud@gmail.com\n" +
-//                "Project Name : OOP Term Project\n" +
-//                "Project Subject : Virtual Git Program\n" +
-//                "\n" +
-//                "✨<- gitmoji :sparkles: - Additional Log. 실제로는 해당 Line이 등장하지 않지만, 반응을 즉각 보이기 위한 event Log.\n" +
-//                "\n" +
-//                "These are common Git commands used in various situations:\n" +
-//                "\n" +
-//                "start a working area\n" +
-//                "[ONLY in Terminal]\n" +
-//                "pwd          terminal running...\n" +
-//                "exit          program 종료\n" +
-//                "cd ${repoName}              ${repoName}에 해당하는 repository로 접근하며, git 작업을 할 수 있음\n" +
-//                "\n" +
-//                "[ONLY in Git]\n" +
-//                "pwd          git running...\n" +
-//                "cd          해당 repository에서 빠져나와 git 작업을 할수 없음\n" +
-//                "touch ${fileName}           ${fileName}파일을 수정한다는 의미\n" +
-//                "new ${fileName}           ${fileName}파일을 생성. 이미 존재한다면 생성하지않음을 알리고 재입력 받음\n" +
-//                "git checkout ${branchName}           ${branchName}의 브랜치로 checkout함. 없다면 재입력 받음\n" +
-//                "git branch          현재 repository가 보유하고있는 branch의 목록을 리스트업. 현재 체크아웃한 브랜치 앞에는 * 가 붙음\n" +
-//                "git add ${fileName}          아직 Staging되지 않은 상태의 ${fileName}을 Staging함\n" +
-//                "git add .          아직 Staging 되지 않은 상태의 모든 파일들을 Staging함\n" +
-//                "git commit ${commitMSG}          ${commitMSG}의 내용으로 현재 Tracked 중인(Staging된 상태의) 파일들을 Commit함\n" +
-//                "git push           현재까지의 커밋로그를 ${repoName}의 폴더 안에 remote_${branchName}.txt 파일에 작성하여 저장. 현재 체크아웃한 브랜치의 것을 푸쉬함\n" +
-//                "git status           현재 파일들의 상태를 보여줌. \n" +
-//                "git log           해당 branch의 현재까지의 커밋로그를 보여줌. commitID는 random으로 임의로 받음 \n" +
-//                " \n" +
-//                " \n" +
-//                "[About File]\n" +
-//                "StagingNotChanged           이전 Push 이후로 변화가 생긴 파일. NOTCHANGED, MODIFIED 상태가 해당될 것이며 NOTCHANGED는 실제 깃에서처럼 보이지 않게 설정하였음(푸쉬 이후에 변화한 파일만 표시)  \n" +
-//                "OnlyStaging           이전 Commit 이후로 변화가 생긴 파일. NEWFILE, MODIFIED 상태가 해당됨  \n" +
-//                "Untracked           새롭게 new 생성된 파일. NEWFILE 상태만 해당하므로, 파일의 Status를 보여주지 않음\n" +
-//                "\n" +
-//                "[About Status]\n" +
-//                "NOTCHANGED           이전에 commit 한 히스토리 O, 이전 커밋 이후로 변경 X\n" +
-//                "MODIFIED           이전에 commit 한 히스토리 O, 이전 커밋 이후로 변경 O\n" +
-//                "NEWFILE           이전에 commit 한 히스토리 X, 새로 add 된 파일 \n" +
-//                "\n" +
-//                "\n" +
-//                "🥰 Virtual Git ");
     }
 }
