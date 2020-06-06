@@ -37,6 +37,7 @@ public class Branch extends Commit {
         for (Commit commit : commits) {
             System.out.println(commit.getTime());
             System.out.println(commit.getMsg());
+            System.out.println(commit.getFileLog());
             System.out.println();
         }
     }
@@ -44,37 +45,34 @@ public class Branch extends Commit {
 
     // git commit "msg"
     public void setCommitLog(String commitMsg) {
-        int index = commits.size(); // index번째에 추가할거고
+        if(fileMgr.getSnapShot().length()!=0){
+            // 커밋 새로 만들기
+            Commit commit = new Commit();
+            commit.setCommit(commitMsg);
+            commit.setFileLog(fileMgr.getSnapShot()); // fileLog셋팅
 
-        // 커밋 새로 만들기
-        Commit commit = new Commit();
-        commit.setCommit(commitMsg);
+            commits.add(commit); // 방금 셋팅한 커밋 배열에 추가
 
-        commits.add(commit); // 방금 셋팅한 커밋 배열에 추가
-
-        // 커밋 후 OnlyStaging -> staging not CHanged로 바꾸기
-        // 1. 모든 Modified 찾기
-        // 2. StagingNotChanged 로 변경
-        fileMgr.commitFile();
-        commitCnt++;
+            // 커밋 후 OnlyStaging -> staging not CHanged로 바꾸기
+            // 1. 모든 Modified 찾기
+            // 2. StagingNotChanged 로 변경
+            fileMgr.commitFile();
+            commitCnt++;
+        }else {
+            System.out.println("COMMIT LOG가 깔끔한데요? 할 커밋이 없어요");
+        }
     }
 
     // new fileName
     public void newFile(String name) {
         if (fileMgr.isExist(name)) {
-            // 만약에 중복되는 파일명이 있다고 하면 -> 새로 못만든다고 하기
             System.out.println("✨new 실패! - 해당 파일명이 존재합니다. 다른 파일명을 입력하세요.");
         } else {
-            // 만들기
-            fileMgr.setFile(name); // new = untracked
+            fileMgr.setFile(name); // new = untracked(만들기)
         }
-
-
-        // setFile(new Untracked());
     }
 
     // touch fileName
-    // bug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 여기 생성자로 바꿀게아니라, status를 바꿔줘야함
     public void editFileStatus(String name) {
         // 순회해서 해당하는애 수정하기
         if (fileMgr.isExist(name) ) {
@@ -96,9 +94,7 @@ public class Branch extends Commit {
 //        (use "git push" to publish your local commits)
 //
         if(!fileMgr.isSnapshotsExist()){
-            // add도 없고, touch도없고, commit도 없을경우 (commitCnt랑은 노상관)
-            // 근데 지금은 커밋하고나서 🔥
-            // snapshot이 없으면 더이상 커밋할게 없다는 뜻
+            // add도 없고, touch도없고, commit도 없을경우 (commitCnt랑은 노상관) - snapshot이 없으면 더이상 커밋할게 없다는 뜻
             System.out.println("On branch "+getName());
             System.out.println("Your branch is ahead of 'origin/" + getName() + "' by " + commitCnt + " commits.");
             System.out.println("(use \"git push\" to publish your local commits");

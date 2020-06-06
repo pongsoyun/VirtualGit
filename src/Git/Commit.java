@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class Commit {
     String msg;
     String time;
+    String fileLog;
 
     public Commit() {
         // Default
@@ -40,6 +41,12 @@ public class Commit {
         return this.time;
     }
 
+    public void setFileLog(String snapshots) {
+        this.fileLog = snapshots;
+    }
 
+    public String getFileLog(){
+        return this.fileLog;
+    }
 
 }

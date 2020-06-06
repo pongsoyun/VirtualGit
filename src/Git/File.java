@@ -238,14 +238,13 @@ class FileMgr {
                     System.out.println(files.get(j)+" 이 이전에Commited된, ++"+files.get(j).getStatus()+"++상태의 파일인가봐요");
                     files.get(j).setStatus(Status.NOTCHANGED); // 변경안된것
                 }
-//                if(files.get(j) instanceof StagingNotChanged){
-//                    System.out.println(files.get(j)+" 이 이전에Commited된, ++"+files.get(j).getStatus()+"++상태의 파일인가봐요");
-//                    files.get(j).setStatus(Status.NOTCHANGED); // 변경안된것
-//                }
             }
             getClean();
         }
+    }
 
+    public String getSnapShot(){
+            return this.snapshots.toString();
     }
 }
 
