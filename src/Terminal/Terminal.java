@@ -113,6 +113,9 @@ public class Terminal extends Git {
                             case "status":
                                 getBranchStatus();
                                 break;
+                            case "push":
+                                gitPush();
+                                break;
                             default:
                                 break;
                         }

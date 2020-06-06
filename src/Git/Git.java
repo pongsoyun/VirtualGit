@@ -2,10 +2,12 @@ package Git;
 
 import java.util.ArrayList;
 import static Terminal.Color.*;
+import static Terminal.FileMgr.*;
 
 public class Git  extends Repository{
     public ArrayList<Repository> repos = new ArrayList<>(); // 여기서 생성하고, 사용
     public int curRepoIndex; // 현재 몇번쨰 repos[] 의 인덱스인지
+    public FileMgr fileMgr = new FileMgr();
 
     @Override
     public String toString() {
@@ -70,7 +72,20 @@ public class Git  extends Repository{
     // git log
     public void getLog() {
         Branch branch = repos.get(curRepoIndex).getBranch();
-        branch.getCommitLog();
+        System.out.println(branch.getCommitLog());
+    }
+
+    // git push
+    public void gitPush() {
+        Branch branch = repos.get(curRepoIndex).getBranch();
+        String contents = branch.getCommitLog();
+        // 폴더 : 레포 이름
+        makeFolder(repos.get(curRepoIndex).getRepoName());
+        // 파일 : 레포/branch 이름
+
+        // if(FOLDER) FILEWRITE : MAKE&FILEWRITE;
+        // FILE WRITE
+
     }
 
     // git commit "msg"

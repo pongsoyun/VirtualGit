@@ -33,13 +33,20 @@ public class Branch extends Commit {
 
     /*-- function --*/
     // git log
-    public void getCommitLog() {
+    public String getCommitLog() {
+        StringBuffer str = new StringBuffer();
         for (Commit commit : commits) {
-            System.out.println(commit.getTime());
-            System.out.println(commit.getMsg());
-            System.out.println(commit.getFileLog());
-            System.out.println();
+            str.append(commit.getTime()+"\n");
+            str.append(commit.getMsg()+"\n");
+            str.append(commit.getFileLog()+"\n");
+            str.append("\n");
+//            System.out.println(commit.getTime());
+//            System.out.println(commit.getMsg());
+//            System.out.println(commit.getFileLog());
+//            System.out.println();
         }
+
+        return str.toString();
     }
 
 
