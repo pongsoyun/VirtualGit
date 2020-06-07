@@ -41,7 +41,7 @@ public class Terminal extends Git {
         // 터미널을 계속 실행하기 위함. exit이 나오기 전까지 계속 실행
         do {
             // 계속 실행함. exit이 되기 전까지
-            System.out.print(prompt);
+            System.out.print(ANSI_PURPLE+prompt+ANSI_RESET);
             input = scanner.nextLine(); // 다음에 들어온 명령어
             inputArr = input.split(" ");
             boolean isExist = false;
@@ -51,32 +51,35 @@ public class Terminal extends Git {
                     System.out.println("✨bye zsh...");
                     isExit = true;
                     break;
-//                case "ls":
-//                    // git에서 사용시 파일 목록, zsh에서 사용시 레포 목록
-//                     isExist = true;
-//                     if(inputArr.length==1){
-//                         if(prompt == "> "){
-//                             if(getRepos().length()==0){
-//                                 System.out.println("None git Repository. Let's " + ANSI_BLUE + "git init REPOSITORYNAME "+ANSI_RESET + "!");
-//                             }else {
-//                                 System.out.println(getRepos());
-//                             }
-//                         }
-//                         else
-//                         {
-//                             if(getLS().length() ==0)
-//                             {
-//                                 System.out.println("None files. Let's " + ANSI_BLUE + "new FILENAME"+ANSI_RESET + "!");
-//                             }else{
-//                                 System.out.println(getLS());
-//                             }
-//                         }
-//                     }else {
-//                         System.out.println("zsh: \'" + this.toString() + "\' is not a zsh command.\n\n" +
-//                                 "The most similar command is\n\t\t" + ANSI_YELLOW +
-//                                 "ls" + ANSI_RESET);
-//                     }
-//                     break;
+                case "ls":
+                    // git에서 사용시 파일 목록, zsh에서 사용시 레포 목록
+                     isExist = true;
+                     if(inputArr.length==1){
+                         if(prompt == "> "){
+                             if(getRepos().length()==0){
+                                 System.out.println("None git Repository. Let's " + ANSI_BLUE + "git init REPOSITORYNAME "+ANSI_RESET + "!");
+                             }else {
+//                                 System.out.println("✨Now Your Repos : ");
+                                 System.out.println(getRepos());
+                             }
+                         }
+                         else
+                         {
+                             if(isExistGitLS())
+                             {
+//                                 System.out.println("✨Now Your files : ");
+                                 gitLS();
+                                 System.out.println();
+                             }else{
+                                 System.out.println("None files. Let's " + ANSI_BLUE + "new FILENAME"+ANSI_RESET + "!");
+                             }
+                         }
+                     }else {
+                         System.out.println("zsh: \'" + this.toString() + "\' is not a zsh command.\n\n" +
+                                 "The most similar command is\n\t\t" + ANSI_YELLOW +
+                                 "ls" + ANSI_RESET);
+                     }
+                     break;
                 case "pwd":
                     // 현재 git init하여 사용하고있는 상태인지 알려줌
                     isExist = true;

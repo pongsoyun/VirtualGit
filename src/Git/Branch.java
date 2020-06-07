@@ -26,8 +26,15 @@ public class Branch extends Commit {
     }
 
     // ls
-    public String getLS() {
-        return fileMgr.getFilesName();
+    public void getLS() {
+        fileMgr.getGitLS();
+    }
+
+    public boolean isFilesExist() {
+        boolean isExist = false;
+        if(fileMgr.files.size() > 0)
+            isExist = true;
+        return isExist;
     }
 
 

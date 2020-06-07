@@ -82,6 +82,18 @@ public class Git  extends Repository{
         System.out.println(branch.getCommitLog());
     }
 
+    // ls - git 안에서
+    public void gitLS(){
+        Branch branch = repos.get(curRepoIndex).getBranch();
+        branch.getLS();
+    }
+
+    public boolean isExistGitLS(){
+        Branch branch = repos.get(curRepoIndex).getBranch();
+        return branch.isFilesExist(); // 파일이 존재하는지 리턴
+    }
+
+
     // git remote
     public void gitRemote(){
         System.out.println(this.toString());

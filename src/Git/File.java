@@ -20,21 +20,12 @@ class FileMgr {
             return true;
     }
 
-
-    // ls
-//    public String getFilesName() {
-//        String str = "";
-//        System.out.println(this.files.size());
-//        this.getFiles();
-//        System.out.println(this.files.size());
-//
-//        for(int j=0 ; j<files.size(); j++){
-//            System.out.println(files.get(j).getFileName());
-//            str += files.get(j).getFileName();
-//        }
-//        return str;
-//    }
-
+    // ls -> 파일 목록 보여주기
+    public void getGitLS() {
+        for(int j =0 ; j < files.size(); j++){
+            System.out.print(files.get(j).getFileName() + "\t");
+        }
+    }
 
     // new file
     public void setNewFile(String name) {
@@ -242,7 +233,6 @@ class FileMgr {
     // StagingNotChanged -> Modified 가 아니라 modified: 아니면 new file: 로!!!!
     public File touchFile(File file) {
         file.setStatus(Status.MODIFIED);
-//        System.out.println("수정됩니다 MODIFIED가 되어야정상" + file.getStatus());
         return file;
     }
 
@@ -257,7 +247,6 @@ class FileMgr {
         } else {
             System.out.println("nothing to add, There's no more files to add!"); // add할 파일이 없어요
         }
-//        snapshots.append(" "); // update 하는걸 만들까? 지금 touch나 add 나 다 log를 찍어보지않으면 안됨 ㅠㅠ
         return file;
     }
 
@@ -268,7 +257,7 @@ class FileMgr {
     }
 
 
-    // git commit 하고나서 들어오는것. 후철ㅣ
+    // git commit 하고나서 들어오는것. 후처리
     // Modified -> StagingnotChanged
     public void commitFile() {
         if (files.size() != 0) {
